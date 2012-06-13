@@ -3,7 +3,7 @@ angular.module('albumService', ['ngResource']).factory('Album', function($resour
 
 	return $resource(baseUrl + ':action/:id', {}, {
 		list: {method: 'GET', params: {action: 'list'}, isArray: true},
-		show: {method: 'GET', params: {action: 'show'}},
+		get: {method: 'GET', params: {action: 'get'}},
 		save: {method: 'POST', params: {action: 'save'}},
 		update: {method: 'POST', params: {action: 'update'}},
 		delete: {method: 'POST', params: {action: 'delete'}}
@@ -32,7 +32,7 @@ function ListCtrl($scope, $location, Album) {
 
 function ShowCtrl($scope, $routeParams, Album) {
 	console.log('showing', $routeParams.id);
-	$scope.item = Album.show({id: $routeParams.id});
+	$scope.item = Album.get({id: $routeParams.id});
 }
 
 //ListCtrl.$inject = ['$scope', 'Album'];

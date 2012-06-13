@@ -15,10 +15,6 @@ class AlbumController {
         render Album.list(params) as JSON
     }
 
-    def create() {
-        [albumInstance: new Album(params)]
-    }
-
     def save() {
         def albumInstance = new Album(params)
         if (!albumInstance.save(flush: true)) {
@@ -30,24 +26,13 @@ class AlbumController {
         redirect(action: "show", id: albumInstance.id)
     }
 
-    def show() {
+    def get() {
         def albumInstance = Album.get(params.id)
         if (albumInstance) {
 			render albumInstance as JSON
         } else {
 			response.sendError SC_NOT_FOUND
 		}
-    }
-
-    def edit() {
-        def albumInstance = Album.get(params.id)
-        if (!albumInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'album.label', default: 'Album'), params.id])
-            redirect(action: "list")
-            return
-        }
-
-        [albumInstance: albumInstance]
     }
 
     def update() {

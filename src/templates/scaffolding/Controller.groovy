@@ -13,10 +13,6 @@ class ${className}Controller {
         render ${className}.list(params) as JSON
     }
 
-    def create() {
-        [${propertyName}: new ${className}(params)]
-    }
-
     def save() {
         def ${propertyName} = new ${className}(params)
         if (!${propertyName}.save(flush: true)) {
@@ -28,24 +24,13 @@ class ${className}Controller {
         redirect(action: "show", id: ${propertyName}.id)
     }
 
-    def show() {
+    def get() {
         def ${propertyName} = ${className}.get(params.id)
         if (${propertyName}) {
 			render ${propertyName} as JSON
         } else {
 			response.sendError SC_NOT_FOUND
 		}
-    }
-
-    def edit() {
-        def ${propertyName} = ${className}.get(params.id)
-        if (!${propertyName}) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: '${domainClass.propertyName}.label', default: '${className}'), params.id])
-            redirect(action: "list")
-            return
-        }
-
-        [${propertyName}: ${propertyName}]
     }
 
     def update() {
