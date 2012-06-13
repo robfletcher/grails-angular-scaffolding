@@ -5,7 +5,9 @@ class AngularScaffoldingGrailsPlugin {
     def dependsOn = []
     def pluginExcludes = [
         'grails-app/conf/BootStrap.groovy',
-        'grails-app/views/**/*'
+        'grails-app/views/**/*',
+        'web-app/css/**/*',
+        'web-app/images/**/*'
     ]
 
     def title = 'Angular Scaffolding Plugin'
