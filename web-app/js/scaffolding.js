@@ -2,7 +2,7 @@ angular.module('scaffolding', []).config([
     '$routeProvider',
     function($routeProvider) {
         $routeProvider.
-            when('/list', {template: '/angular-scaffolding/list.html', controller: ListCtrl}).
+            when('/list', {template: '/grails-ng/list.html', controller: ListCtrl}).
             otherwise({redirectTo: '/list'});
     }
 ]);

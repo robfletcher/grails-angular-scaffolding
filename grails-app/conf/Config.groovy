@@ -1,4 +1,4 @@
-grails.app.config = 'grails-ng'
+grails.app.context = 'grails-ng'
 
 log4j = {
     // Example of changing the log pattern for the default console
