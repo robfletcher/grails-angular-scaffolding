@@ -7,7 +7,7 @@ modules = {
     }
 
     'angular-scaffolding' {
-        dependsOn 'angular'
+        dependsOn 'jquery', 'angular'
         resource id: 'js', url: [plugin: 'angular-scaffolding', dir: 'js', file: 'scaffolding.js']
     }
 }
