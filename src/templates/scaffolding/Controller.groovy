@@ -1,5 +1,6 @@
 <%=packageName ? "package ${packageName}\n\n" : ''%>import org.springframework.dao.DataIntegrityViolationException
 import grails.converters.JSON
+import static javax.servlet.http.HttpServletResponse.*
 
 class ${className}Controller {
 
@@ -29,13 +30,11 @@ class ${className}Controller {
 
     def show() {
         def ${propertyName} = ${className}.get(params.id)
-        if (!${propertyName}) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: '${domainClass.propertyName}.label', default: '${className}'), params.id])
-            redirect(action: "list")
-            return
-        }
-
-        [${propertyName}: ${propertyName}]
+        if (${propertyName}) {
+			render ${propertyName} as JSON
+        } else {
+			response.sendError SC_NOT_FOUND
+		}
     }
 
     def edit() {
