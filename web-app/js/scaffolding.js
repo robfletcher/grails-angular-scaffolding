@@ -8,7 +8,9 @@ angular.module('scaffolding', []).config([
 ]);
 
 function ListCtrl($scope) {
-    jQuery.getJSON('list', function(data) {
+    $scope.baseUrl = $('body').data('base-url').replace(/index$/, '');
+
+    jQuery.getJSON($scope.baseUrl + 'list', function(data) {
         $scope.$apply(function() {
             $scope.list = data;
         });
