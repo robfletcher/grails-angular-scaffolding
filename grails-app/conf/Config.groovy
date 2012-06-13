@@ -1,4 +1,5 @@
 grails.app.context = 'grails-ng'
+grails.web.url.converter = 'hyphenated'
 
 log4j = {
     // Example of changing the log pattern for the default console

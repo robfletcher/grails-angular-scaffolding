@@ -4,7 +4,11 @@ getAlbums = ->
 
 albums = []
 
-casper.start 'http://localhost:8080/grails-ng/album', ->
+casper.start 'http://localhost:8080/grails-ng/test-data/reset', ->
+    @test.assertTextExists 'OK', 'test data is reset'
+
+casper.thenOpen 'http://localhost:8080/grails-ng/album', ->
+    @test.info 'scaffolded page opens list view by default'
     @test.assertHttpStatus 200, 'page loads successfully'
     @test.assertUrlMatch /#\/list$/, 'list view is loaded'
 
@@ -19,7 +23,7 @@ casper.then ->
 casper.then ->
     @test.info 'when a row in the list is clicked...'
     @click 'tbody tr:nth-child(1)'
-    @test.assertUrlMatch /#\/show\/1$/, 'show view is loaded'
+    @test.assertUrlMatch /#\/show\/\d+$/, 'show view is loaded'
     @waitFor ->
         @evaluate ->
             $('#artist-label + *').text() != ''

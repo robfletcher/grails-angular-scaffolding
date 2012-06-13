@@ -9,4 +9,8 @@ class Album {
         artist blank: false
         title blank: false
     }
+
+	static mapping = {
+		sort 'artist'
+	}
 }
