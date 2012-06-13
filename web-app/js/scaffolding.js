@@ -22,8 +22,12 @@ angular.module('scaffolding', ['albumService']).config([
 	}
 ]);
 
-function ListCtrl($scope, Album) {
+function ListCtrl($scope, $location, Album) {
 	$scope.list = Album.list();
+
+	$scope.show = function(item) {
+		$location.path('/show/' + item.id);
+	};
 }
 
 function ShowCtrl($scope, $routeParams, Album) {
