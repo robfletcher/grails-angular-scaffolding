@@ -11,6 +11,12 @@ This is an experimental work-in-progress. It is far from complete.
 - Only the _list_ view is implemented so far
 - Currently default scaffolding GSP templates (_create,gsp_, _edit.gsp_, _list.gsp_, _show.gsp_ and __form.gsp_) will be created alongside the _Angular_ enabled _index.gsp_ you can delete these extra files.
 
+## Tests
+
+There are some simple end-to-end tests that use [Casper JS](http://casperjs.org/). To run the tests:
+
+	casperjs test test/casper
+
 ## To-do
 
 - List
