@@ -1,0 +1,9 @@
+# Grails
+/target
+
+# IntelliJ stuff
+.idea
+*.ipr
+*.iml
+*.iws
+/out
