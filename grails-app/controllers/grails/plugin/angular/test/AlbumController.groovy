@@ -68,19 +68,15 @@ class AlbumController {
     def delete() {
         def albumInstance = Album.get(params.id)
         if (!albumInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'album.label', default: 'Album'), params.id])
-            redirect(action: "list")
-            return
+			response.sendError SC_NOT_FOUND
+			return
         }
 
-        try {
-            albumInstance.delete(flush: true)
-			flash.message = message(code: 'default.deleted.message', args: [message(code: 'album.label', default: 'Album'), params.id])
-            redirect(action: "list")
-        }
-        catch (DataIntegrityViolationException e) {
-			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'album.label', default: 'Album'), params.id])
-            redirect(action: "show", id: params.id)
-        }
-    }
+		try {
+			albumInstance.delete(flush: true)
+			render([status: 'ok'] as JSON)
+		} catch (DataIntegrityViolationException e) {
+			render([status: 'error', message: e.message] as JSON)
+		}
+	}
 }

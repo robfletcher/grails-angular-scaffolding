@@ -1,12 +1,12 @@
 angular.module('albumService', ['ngResource']).factory('Album', function($resource) {
 	var baseUrl = $('body').data('base-url').replace(/index$/, '');
 
-	return $resource(baseUrl + ':action/:id', {}, {
+	return $resource(baseUrl + ':action/:id', {id: '@id'}, {
 		list: {method: 'GET', params: {action: 'list'}, isArray: true},
 		get: {method: 'GET', params: {action: 'get'}},
 		save: {method: 'POST', params: {action: 'save'}},
 		update: {method: 'POST', params: {action: 'update'}},
-		delete: {method: 'POST', params: {action: 'delete'}}
+		remove: {method: 'POST', params: {action: 'delete'}}
 	});
 });
 
@@ -30,9 +30,21 @@ function ListCtrl($scope, $location, Album) {
 	};
 }
 
-function ShowCtrl($scope, $routeParams, Album) {
+function ShowCtrl($scope, $routeParams, $location, Album) {
 	console.log('showing', $routeParams.id);
 	$scope.item = Album.get({id: $routeParams.id});
+
+	$scope.delete = function(item) {
+		console.log('deleting', item.id);
+		var ok = Album.remove(item, function(result) {
+			if (result.status == 'ok') {
+				$location.path('/list');
+			} else {
+				console.error(result);
+			}
+		});
+		console.log('ok?', ok);
+	};
 }
 
 //ListCtrl.$inject = ['$scope', 'Album'];
