@@ -1,6 +1,6 @@
 import grails.util.GrailsUtil
 
-def fileVersion = GrailsUtil.isDevelopmentEnv() ? '1.0.0rc12' : '1.0.0rc12.min'
+def fileVersion = GrailsUtil.isDevelopmentEnv() ? '1.0.0' : '1.0.0.min'
 
 modules = {
     angular {
