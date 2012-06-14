@@ -6,7 +6,7 @@ angular.module('albumService', ['ngResource']).factory('Album', function($resour
 		get: {method: 'GET', params: {action: 'get'}},
 		save: {method: 'POST', params: {action: 'save'}},
 		update: {method: 'POST', params: {action: 'update'}},
-		remove: {method: 'POST', params: {action: 'delete'}}
+		delete: {method: 'POST', params: {action: 'delete'}}
 	});
 });
 
@@ -34,7 +34,7 @@ function ShowCtrl($scope, $routeParams, $location, Album) {
 	$scope.item = Album.get({id: $routeParams.id});
 
 	$scope.delete = function(item) {
-		Album.remove(item, function(result) {
+		item.$delete(function(result) {
 			if (result.status == 'ok') {
 				$location.path('/list');
 			} else {
