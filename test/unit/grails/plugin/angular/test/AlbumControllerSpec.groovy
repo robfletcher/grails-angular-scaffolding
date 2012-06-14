@@ -79,8 +79,7 @@ class AlbumControllerSpec extends Specification {
 
     void 'save returns ok status if successful'() {
         when:
-        params.artist = 'Yeasayer'
-        params.title = 'Fragrant World'
+        request.JSON = [artist: 'Yeasayer', title: 'Fragrant World'] as JSON
         controller.save()
 
         then:
@@ -96,8 +95,7 @@ class AlbumControllerSpec extends Specification {
 
     void 'save returns errors if it fails'() {
         when:
-        params.artist = null
-        params.title = ''
+        request.JSON = [artist: null, title: ''] as JSON
         controller.save()
 
         then:
@@ -110,8 +108,7 @@ class AlbumControllerSpec extends Specification {
     void 'update returns ok status if successful'() {
         when:
         params.id = Album.findByTitle('Here').id
-        params.artist = 'Edward Sharpe & the Magnetic Zeroes'
-        params.title = 'Here'
+        request.JSON = [artist: 'Edward Sharpe & the Magnetic Zeroes', title: 'Here'] as JSON
         controller.update()
 
         then:
@@ -131,9 +128,7 @@ class AlbumControllerSpec extends Specification {
 
         and:
         params.id = album.id
-        params.version = "$album.version"
-        params.artist = 'Edward Sharpe & the Magnetic Zeroes'
-        params.title = 'Here'
+        request.JSON = [version: album.version, artist: 'Edward Sharpe & the Magnetic Zeroes', title: 'Here'] as JSON
 
         when:
         album.artist = 'Edward Sharpe & the Magnetic Zeroes'
@@ -152,14 +147,13 @@ class AlbumControllerSpec extends Specification {
     void 'update returns errors if it fails'() {
         when:
         params.id = Album.findByTitle('Here').id
-        params.artist = null
-        params.title = ''
+        request.JSON = [artist: '', title: ''] as JSON
         controller.update()
 
         then:
         def json = response.contentAsJSON
         json.status == 'error'
-        json.errors.artist == 'Property [artist] of class [class grails.plugin.angular.test.Album] cannot be null'
+        json.errors.artist == 'Property [artist] of class [class grails.plugin.angular.test.Album] cannot be blank'
         json.errors.title == 'Property [title] of class [class grails.plugin.angular.test.Album] cannot be blank'
     }
 

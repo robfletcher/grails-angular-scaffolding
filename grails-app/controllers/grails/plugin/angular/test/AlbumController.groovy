@@ -16,7 +16,7 @@ class AlbumController {
     }
 
     def save() {
-        def albumInstance = new Album(params)
+        def albumInstance = new Album(request.JSON)
         def responseJson = [:]
         if (albumInstance.save(flush: true)) {
             responseJson.status = 'ok'
@@ -49,9 +49,8 @@ class AlbumController {
 
         def responseJson = [:]
 
-        if (params.version) {
-            def version = params.long('version')
-            if (albumInstance.version > version) {
+        if (request.JSON.version != null) {
+            if (albumInstance.version > request.JSON.version) {
                 render status: SC_CONFLICT, text: message(code: 'default.optimistic.locking.failure',
                           args: [message(code: 'album.label', default: 'Album')],
                           default: 'Another user has updated this Album while you were editing')
@@ -59,7 +58,7 @@ class AlbumController {
             }
         }
 
-        albumInstance.properties = params
+        albumInstance.properties = request.JSON
 
         if (albumInstance.save(flush: true)) {
             responseJson.status = 'ok'

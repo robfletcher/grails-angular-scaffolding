@@ -14,7 +14,7 @@ class ${className}Controller {
     }
 
     def save() {
-        def ${propertyName} = new ${className}(params)
+        def ${propertyName} = new ${className}(request.JSON)
         def responseJson = [:]
         if (${propertyName}.save(flush: true)) {
             responseJson.status = 'ok'
@@ -47,9 +47,8 @@ class ${className}Controller {
 
         def responseJson = [:]
 
-        if (params.version) {
-            def version = params.long('version')
-            if (${propertyName}.version > version) {<% def lowerCaseName = grails.util.GrailsNameUtils.getPropertyName(className) %>
+        if (request.JSON.version != null) {
+            if (${propertyName}.version > request.JSON.version) {<% def lowerCaseName = grails.util.GrailsNameUtils.getPropertyName(className) %>
                 render status: SC_CONFLICT, text: message(code: 'default.optimistic.locking.failure',
                           args: [message(code: '${domainClass.propertyName}.label', default: '${className}')],
                           default: 'Another user has updated this ${className} while you were editing')
@@ -57,7 +56,7 @@ class ${className}Controller {
             }
         }
 
-        ${propertyName}.properties = params
+        ${propertyName}.properties = request.JSON
 
         if (${propertyName}.save(flush: true)) {
             responseJson.status = 'ok'
