@@ -17,13 +17,18 @@ class AlbumController {
 
     def save() {
         def albumInstance = new Album(params)
-        if (!albumInstance.save(flush: true)) {
-            render(view: "create", model: [albumInstance: albumInstance])
-            return
+        def responseJson = [:]
+        if (albumInstance.save(flush: true)) {
+            responseJson.status = 'ok'
+            responseJson.id = albumInstance.id
+            responseJson.message = message(code: 'default.created.message', args: [message(code: 'album.label', default: 'Album'), albumInstance.id])
+        } else {
+            responseJson.status = 'error'
+            responseJson.errors = albumInstance.errors.fieldErrors.collectEntries {
+                [(it.field): message(error: it)]
+            }
         }
-
-		flash.message = message(code: 'default.created.message', args: [message(code: 'album.label', default: 'Album'), albumInstance.id])
-        redirect(action: "show", id: albumInstance.id)
+        render responseJson as JSON
     }
 
     def get() {
@@ -31,52 +36,65 @@ class AlbumController {
         if (albumInstance) {
 			render albumInstance as JSON
         } else {
-			response.sendError SC_NOT_FOUND
+			notFound params.id
 		}
     }
 
     def update() {
         def albumInstance = Album.get(params.id)
         if (!albumInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'album.label', default: 'Album'), params.id])
-            redirect(action: "list")
+            notFound params.id
             return
         }
 
+        def responseJson = [:]
+
         if (params.version) {
-            def version = params.version.toLong()
+            def version = params.long('version')
             if (albumInstance.version > version) {
-                albumInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                          [message(code: 'album.label', default: 'Album')] as Object[],
-                          "Another user has updated this Album while you were editing")
-                render(view: "edit", model: [albumInstance: albumInstance])
+                render status: SC_CONFLICT, text: message(code: 'default.optimistic.locking.failure',
+                          args: [message(code: 'album.label', default: 'Album')],
+                          default: 'Another user has updated this Album while you were editing')
                 return
             }
         }
 
         albumInstance.properties = params
 
-        if (!albumInstance.save(flush: true)) {
-            render(view: "edit", model: [albumInstance: albumInstance])
-            return
+        if (albumInstance.save(flush: true)) {
+            responseJson.status = 'ok'
+            responseJson.id = albumInstance.id
+            responseJson.message = message(code: 'default.updated.message', args: [message(code: 'album.label', default: 'Album'), albumInstance.id])
+        } else {
+            responseJson.status = 'error'
+            responseJson.errors = albumInstance.errors.fieldErrors.collectEntries {
+                [(it.field): message(error: it)]
+            }
         }
 
-		flash.message = message(code: 'default.updated.message', args: [message(code: 'album.label', default: 'Album'), albumInstance.id])
-        redirect(action: "show", id: albumInstance.id)
+        render responseJson as JSON
     }
 
     def delete() {
         def albumInstance = Album.get(params.id)
         if (!albumInstance) {
-			response.sendError SC_NOT_FOUND
-			return
+            notFound params.id
+            return
         }
 
-		try {
-			albumInstance.delete(flush: true)
-			render([status: 'ok'] as JSON)
-		} catch (DataIntegrityViolationException e) {
-			render([status: 'error', message: e.message] as JSON)
-		}
-	}
+        def responseJson = [:]
+        try {
+            albumInstance.delete(flush: true)
+            responseJson.status = 'ok'
+            responseJson.message = message(code: 'default.deleted.message', args: [message(code: 'album.label', default: 'Album'), params.id])
+        } catch (DataIntegrityViolationException e) {
+            responseJson.status = 'error'
+            responseJson.message = message(code: 'default.not.deleted.message', args: [message(code: 'album.label', default: 'Album'), params.id])
+        }
+        render responseJson as JSON
+    }
+
+    private void notFound(id) {
+        response.sendError SC_NOT_FOUND, message(code: 'default.not.found.message', args: [message(code: 'album.label', default: 'Album'), params.id])
+    }
 }

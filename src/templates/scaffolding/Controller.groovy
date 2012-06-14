@@ -15,13 +15,18 @@ class ${className}Controller {
 
     def save() {
         def ${propertyName} = new ${className}(params)
-        if (!${propertyName}.save(flush: true)) {
-            render(view: "create", model: [${propertyName}: ${propertyName}])
-            return
+        def responseJson = [:]
+        if (${propertyName}.save(flush: true)) {
+            responseJson.status = 'ok'
+            responseJson.id = ${propertyName}.id
+            responseJson.message = message(code: 'default.created.message', args: [message(code: '${domainClass.propertyName}.label', default: '${className}'), ${propertyName}.id])
+        } else {
+            responseJson.status = 'error'
+            responseJson.errors = ${propertyName}.errors.fieldErrors.collectEntries {
+                [(it.field): message(error: it)]
+            }
         }
-
-		flash.message = message(code: 'default.created.message', args: [message(code: '${domainClass.propertyName}.label', default: '${className}'), ${propertyName}.id])
-        redirect(action: "show", id: ${propertyName}.id)
+        render responseJson as JSON
     }
 
     def get() {
@@ -29,52 +34,65 @@ class ${className}Controller {
         if (${propertyName}) {
 			render ${propertyName} as JSON
         } else {
-			response.sendError SC_NOT_FOUND
+			notFound params.id
 		}
     }
 
     def update() {
         def ${propertyName} = ${className}.get(params.id)
         if (!${propertyName}) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: '${domainClass.propertyName}.label', default: '${className}'), params.id])
-            redirect(action: "list")
+            notFound params.id
             return
         }
 
+        def responseJson = [:]
+
         if (params.version) {
-            def version = params.version.toLong()
+            def version = params.long('version')
             if (${propertyName}.version > version) {<% def lowerCaseName = grails.util.GrailsNameUtils.getPropertyName(className) %>
-                ${propertyName}.errors.rejectValue("version", "default.optimistic.locking.failure",
-                          [message(code: '${domainClass.propertyName}.label', default: '${className}')] as Object[],
-                          "Another user has updated this ${className} while you were editing")
-                render(view: "edit", model: [${propertyName}: ${propertyName}])
+                render status: SC_CONFLICT, text: message(code: 'default.optimistic.locking.failure',
+                          args: [message(code: '${domainClass.propertyName}.label', default: '${className}')],
+                          default: 'Another user has updated this ${className} while you were editing')
                 return
             }
         }
 
         ${propertyName}.properties = params
 
-        if (!${propertyName}.save(flush: true)) {
-            render(view: "edit", model: [${propertyName}: ${propertyName}])
-            return
+        if (${propertyName}.save(flush: true)) {
+            responseJson.status = 'ok'
+            responseJson.id = ${propertyName}.id
+            responseJson.message = message(code: 'default.updated.message', args: [message(code: '${domainClass.propertyName}.label', default: '${className}'), ${propertyName}.id])
+        } else {
+            responseJson.status = 'error'
+            responseJson.errors = ${propertyName}.errors.fieldErrors.collectEntries {
+                [(it.field): message(error: it)]
+            }
         }
 
-		flash.message = message(code: 'default.updated.message', args: [message(code: '${domainClass.propertyName}.label', default: '${className}'), ${propertyName}.id])
-        redirect(action: "show", id: ${propertyName}.id)
+        render responseJson as JSON
     }
 
     def delete() {
         def ${propertyName} = ${className}.get(params.id)
         if (!${propertyName}) {
-			response.sendError SC_NOT_FOUND
-			return
+            notFound params.id
+            return
         }
 
+        def responseJson = [:]
         try {
             ${propertyName}.delete(flush: true)
-			render([status: 'ok'] as JSON)
+            responseJson.status = 'ok'
+            responseJson.message = message(code: 'default.deleted.message', args: [message(code: '${domainClass.propertyName}.label', default: '${className}'), params.id])
         } catch (DataIntegrityViolationException e) {
-			render([status: 'error', message: e.message] as JSON)
+            responseJson.status = 'error'
+            responseJson.message = message(code: 'default.not.deleted.message', args: [message(code: '${domainClass.propertyName}.label', default: '${className}'), params.id])
         }
+        render responseJson as JSON
+    }
+
+    private void notFound(id) {
+        response.sendError SC_NOT_FOUND, message(code: 'default.not.found.message', args: [message(code: '${domainClass.propertyName}.label', default: '${className}'), params.id])
     }
 }
