@@ -46,8 +46,8 @@ function ShowCtrl($scope, $routeParams, $location, Album) {
 
 function CreateCtrl($scope, $location, Album) {
     $scope.item = new Album;
-    $scope.save = function() {
-        $scope.item.$save(function(album) {
+    $scope.save = function(item) {
+        item.$save(function(album) {
             // TODO: check status and display errors if not ok
             $location.path('/show/' + album.id);
         });
