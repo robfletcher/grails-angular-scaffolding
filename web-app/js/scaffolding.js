@@ -15,9 +15,10 @@ angular.module('scaffolding', ['albumService']).config([
 	function($routeProvider) {
 		var baseUrl = $('body').data('base-url').replace(/index$/, '');
 		$routeProvider.
+			when('/create', {templateUrl: '/grails-ng/create.html', controller: CreateCtrl}).
+			when('/edit/:id', {templateUrl: '/grails-ng/edit.html', controller: EditCtrl}).
 			when('/list', {templateUrl: '/grails-ng/list.html', controller: ListCtrl}).
 			when('/show/:id', {templateUrl: '/grails-ng/show.html', controller: ShowCtrl}).
-            when('/create', {templateUrl: '/grails-ng/create.html', controller: CreateCtrl}).
 			otherwise({redirectTo: '/list'});
 	}
 ]);
@@ -47,9 +48,30 @@ function ShowCtrl($scope, $routeParams, $location, Album) {
 function CreateCtrl($scope, $location, Album) {
     $scope.item = new Album;
     $scope.save = function(item) {
-        item.$save(function(album) {
+        item.$save(function(response) {
             // TODO: check status and display errors if not ok
-            $location.path('/show/' + album.id);
+            $location.path('/show/' + response.id);
         });
     };
+}
+
+function EditCtrl($scope, $routeParams, $location, Album) {
+	$scope.item = Album.get({id: $routeParams.id});
+
+	$scope.update = function(item) {
+        item.$update(function(response) {
+            // TODO: check status and display errors if not ok
+            $location.path('/show/' + response.id);
+        });
+    };
+
+	$scope.delete = function(item) {
+		item.$delete(function(result) {
+			if (result.status == 'ok') {
+				$location.path('/list');
+			} else {
+				console.error(result);
+			}
+		});
+	};
 }
