@@ -8,7 +8,8 @@ After installing the plugin run `grails generate-all _domain class name_` to ins
 
 This is an experimental work-in-progress. It is far from complete.
 
-- Only the _list_ and _show_ views are implemented so far
+- Only the _list_ and _show_ views are implemented so far.
+- HTML templates for each page are not currently being generated. There are hardcoded ones for the test domain class.
 - Currently default scaffolding GSP templates (_create,gsp_, _edit.gsp_, _list.gsp_, _show.gsp_ and __form.gsp_) will be created alongside the _Angular_ enabled _index.gsp_ you can delete these extra files.
 
 ## Tests
