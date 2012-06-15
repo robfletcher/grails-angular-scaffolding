@@ -1,5 +1,6 @@
 # Grails
 /target
+*.log
 
 # IntelliJ stuff
 .idea
@@ -7,3 +8,11 @@
 *.iml
 *.iws
 /out
+
+# Generated scaffolding
+/grails-app/views/*/_form.gsp
+/grails-app/views/*/create.gsp
+/grails-app/views/*/edit.gsp
+/grails-app/views/*/list.gsp
+/grails-app/views/*/show.gsp
+*Tests.groovy
