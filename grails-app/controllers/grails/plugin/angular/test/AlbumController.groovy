@@ -6,6 +6,8 @@ import static javax.servlet.http.HttpServletResponse.*
 
 class AlbumController {
 
+    static final int SC_UNPROCESSABLE_ENTITY = 422
+
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() { }
@@ -19,11 +21,11 @@ class AlbumController {
         def albumInstance = new Album(request.JSON)
         def responseJson = [:]
         if (albumInstance.save(flush: true)) {
-            responseJson.status = 'ok'
+            response.status = SC_CREATED
             responseJson.id = albumInstance.id
             responseJson.message = message(code: 'default.created.message', args: [message(code: 'album.label', default: 'Album'), albumInstance.id])
         } else {
-            responseJson.status = 'error'
+            response.status = SC_UNPROCESSABLE_ENTITY
             responseJson.errors = albumInstance.errors.fieldErrors.collectEntries {
                 [(it.field): message(error: it)]
             }
@@ -61,11 +63,11 @@ class AlbumController {
         albumInstance.properties = request.JSON
 
         if (albumInstance.save(flush: true)) {
-            responseJson.status = 'ok'
+            response.status = SC_OK
             responseJson.id = albumInstance.id
             responseJson.message = message(code: 'default.updated.message', args: [message(code: 'album.label', default: 'Album'), albumInstance.id])
         } else {
-            responseJson.status = 'error'
+            response.status = SC_UNPROCESSABLE_ENTITY
             responseJson.errors = albumInstance.errors.fieldErrors.collectEntries {
                 [(it.field): message(error: it)]
             }

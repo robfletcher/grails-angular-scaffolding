@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletResponse
 import spock.util.mop.ConfineMetaClassChanges
 
 import static javax.servlet.http.HttpServletResponse.SC_CONFLICT
+import static javax.servlet.http.HttpServletResponse.SC_CREATED
+import static javax.servlet.http.HttpServletResponse.SC_OK
+import static grails.plugin.angular.test.AlbumController.getSC_UNPROCESSABLE_ENTITY
 
 @TestFor(AlbumController)
 @Mock(Album)
@@ -33,6 +36,9 @@ class AlbumControllerSpec extends Specification {
         controller.list()
 
         then:
+        response.status == SC_OK
+
+        and:
         def json = response.contentAsJSON
         json.size() == 3
         json[0].artist == 'Edward Sharpe and the Magnetic Zeroes'
@@ -63,6 +69,9 @@ class AlbumControllerSpec extends Specification {
         controller.get()
 
         then:
+        response.status == SC_OK
+
+        and:
         def json = response.contentAsJSON
         json.artist == 'Edward Sharpe and the Magnetic Zeroes'
         json.title == 'Here'
@@ -77,47 +86,47 @@ class AlbumControllerSpec extends Specification {
         response.status == SC_NOT_FOUND
     }
 
-    void 'save returns ok status if successful'() {
+    void 'save returns 201 status if successful'() {
         when:
         request.JSON = [artist: 'Yeasayer', title: 'Fragrant World'] as JSON
         controller.save()
 
         then:
-        def json = response.contentAsJSON
-        json.status == 'ok'
+        response.status == SC_CREATED
 
         and:
         Album.count() == old(Album.count()) + 1
-        def album = Album.get(json.id)
+        def album = Album.get(response.contentAsJSON.id)
         album.artist == 'Yeasayer'
         album.title == 'Fragrant World'
     }
 
-    void 'save returns errors if it fails'() {
+    void 'save returns 422 if it fails'() {
         when:
         request.JSON = [artist: null, title: ''] as JSON
         controller.save()
 
         then:
+        response.status == SC_UNPROCESSABLE_ENTITY
+
+        and:
         def json = response.contentAsJSON
-        json.status == 'error'
         json.errors.artist == 'Property [artist] of class [class grails.plugin.angular.test.Album] cannot be null'
         json.errors.title == 'Property [title] of class [class grails.plugin.angular.test.Album] cannot be blank'
     }
 
-    void 'update returns ok status if successful'() {
+    void 'update returns 200 if successful'() {
         when:
         params.id = Album.findByTitle('Here').id
         request.JSON = [artist: 'Edward Sharpe & the Magnetic Zeroes', title: 'Here'] as JSON
         controller.update()
 
         then:
-        def json = response.contentAsJSON
-        json.status == 'ok'
+        response.status == SC_OK
 
         and:
         Album.count() == old(Album.count())
-        def album = Album.get(json.id)
+        def album = Album.get(response.contentAsJSON.id)
         album.artist == 'Edward Sharpe & the Magnetic Zeroes'
         album.title == 'Here'
     }
@@ -144,15 +153,17 @@ class AlbumControllerSpec extends Specification {
         response.status == SC_CONFLICT
     }
 
-    void 'update returns errors if it fails'() {
+    void 'update returns 422 if it fails'() {
         when:
         params.id = Album.findByTitle('Here').id
         request.JSON = [artist: '', title: ''] as JSON
         controller.update()
 
         then:
+        response.status == SC_UNPROCESSABLE_ENTITY
+
+        and:
         def json = response.contentAsJSON
-        json.status == 'error'
         json.errors.artist == 'Property [artist] of class [class grails.plugin.angular.test.Album] cannot be blank'
         json.errors.title == 'Property [title] of class [class grails.plugin.angular.test.Album] cannot be blank'
     }
@@ -163,6 +174,9 @@ class AlbumControllerSpec extends Specification {
         controller.delete()
 
         then:
+        response.status == SC_OK
+
+        and:
         response.contentAsJSON.status == 'ok'
 
         and:
