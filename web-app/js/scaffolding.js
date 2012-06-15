@@ -1,4 +1,4 @@
-angular.module('albumService', ['ngResource']).factory('Album', function($resource) {
+angular.module('grailsService', ['ngResource']).factory('Grails', function($resource) {
 	var baseUrl = $('body').data('base-url').replace(/index$/, '');
 
 	return $resource(baseUrl + ':action/:id', {id: '@id'}, {
@@ -10,7 +10,7 @@ angular.module('albumService', ['ngResource']).factory('Album', function($resour
 	});
 });
 
-angular.module('scaffolding', ['albumService']).config([
+angular.module('scaffolding', ['grailsService']).config([
 	'$routeProvider',
 	function($routeProvider) {
 		var baseUrl = $('body').data('base-url').replace(/index$/, '');
@@ -23,16 +23,16 @@ angular.module('scaffolding', ['albumService']).config([
 	}
 ]);
 
-function ListCtrl($scope, $location, Album) {
-	$scope.list = Album.list();
+function ListCtrl($scope, $location, Grails) {
+	$scope.list = Grails.list();
 
 	$scope.show = function(item) {
 		$location.path('/show/' + item.id);
 	};
 }
 
-function ShowCtrl($scope, $routeParams, $location, Album) {
-	$scope.item = Album.get({id: $routeParams.id});
+function ShowCtrl($scope, $routeParams, $location, Grails) {
+	$scope.item = Grails.get({id: $routeParams.id});
 
 	$scope.delete = function(item) {
 		item.$delete(function(result) {
@@ -45,8 +45,8 @@ function ShowCtrl($scope, $routeParams, $location, Album) {
 	};
 }
 
-function CreateCtrl($scope, $location, Album) {
-    $scope.item = new Album;
+function CreateCtrl($scope, $location, Grails) {
+    $scope.item = new Grails;
     $scope.save = function(item) {
         item.$save(function(response) {
             // TODO: check status and display errors if not ok
@@ -55,8 +55,8 @@ function CreateCtrl($scope, $location, Album) {
     };
 }
 
-function EditCtrl($scope, $routeParams, $location, Album) {
-	$scope.item = Album.get({id: $routeParams.id});
+function EditCtrl($scope, $routeParams, $location, Grails) {
+	$scope.item = Grails.get({id: $routeParams.id});
 
 	$scope.update = function(item) {
         item.$update(function(response) {
