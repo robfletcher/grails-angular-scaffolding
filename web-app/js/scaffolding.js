@@ -13,7 +13,6 @@ angular.module('grailsService', ['ngResource']).factory('Grails', function($reso
 angular.module('scaffolding', ['grailsService']).config([
 	'$routeProvider',
 	function($routeProvider) {
-		var baseUrl = $('body').data('base-url').replace(/index$/, '');
 		$routeProvider.
 			when('/create', {templateUrl: '/create.html', controller: CreateCtrl}).
 			when('/edit/:id', {templateUrl: '/edit.html', controller: EditCtrl}).
