@@ -1,5 +1,5 @@
 # Grails
-/target
+target
 *.log
 
 # IntelliJ stuff
