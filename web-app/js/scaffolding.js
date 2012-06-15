@@ -15,10 +15,10 @@ angular.module('scaffolding', ['albumService']).config([
 	function($routeProvider) {
 		var baseUrl = $('body').data('base-url').replace(/index$/, '');
 		$routeProvider.
-			when('/create', {templateUrl: '/grails-ng/create.html', controller: CreateCtrl}).
-			when('/edit/:id', {templateUrl: '/grails-ng/edit.html', controller: EditCtrl}).
-			when('/list', {templateUrl: '/grails-ng/list.html', controller: ListCtrl}).
-			when('/show/:id', {templateUrl: '/grails-ng/show.html', controller: ShowCtrl}).
+			when('/create', {templateUrl: '/create.html', controller: CreateCtrl}).
+			when('/edit/:id', {templateUrl: '/edit.html', controller: EditCtrl}).
+			when('/list', {templateUrl: '/list.html', controller: ListCtrl}).
+			when('/show/:id', {templateUrl: '/show.html', controller: ShowCtrl}).
 			otherwise({redirectTo: '/list'});
 	}
 ]);

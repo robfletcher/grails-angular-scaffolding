@@ -9,14 +9,17 @@ grails.project.dependency.resolution = {
     log 'warn'
     repositories {
         grailsCentral()
+        mavenCentral()
         mavenLocal()
+        mavenRepo 'http://maven.springframework.org/milestone/'
     }
     dependencies {
     }
 
     plugins {
         build(":tomcat:$grailsVersion",
-            ':release:2.0.3') {
+            ':release:2.0.3',
+            ':cloud-foundry:1.2.2') {
             export = false
         }
 
