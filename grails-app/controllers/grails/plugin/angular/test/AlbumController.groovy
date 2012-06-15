@@ -86,16 +86,17 @@ class AlbumController {
         def responseJson = [:]
         try {
             albumInstance.delete(flush: true)
-            responseJson.status = 'ok'
             responseJson.message = message(code: 'default.deleted.message', args: [message(code: 'album.label', default: 'Album'), params.id])
         } catch (DataIntegrityViolationException e) {
-            responseJson.status = 'error'
+            response.status = SC_CONFLICT
             responseJson.message = message(code: 'default.not.deleted.message', args: [message(code: 'album.label', default: 'Album'), params.id])
         }
         render responseJson as JSON
     }
 
     private void notFound(id) {
-        response.sendError SC_NOT_FOUND, message(code: 'default.not.found.message', args: [message(code: 'album.label', default: 'Album'), params.id])
+        response.status = SC_NOT_FOUND
+        def responseJson = [message: message(code: 'default.not.found.message', args: [message(code: 'album.label', default: 'Album'), params.id])]
+        render responseJson as JSON
     }
 }

@@ -1,16 +1,18 @@
 <h1>Create Album</h1>
-<form data-ng-submit="save(item)">
+<form name="form" data-ng-submit="save(item)">
     <fieldset class="form">
         <div class="fieldcontain required">
             <label for="artist">Artist<span class="required-indicator">*</span></label>
             <input type="text" id="artist" name="artist" required data-ng-model="item.artist">
+            <span class="error">{{errors.artist}}</span>
         </div>
         <div class="fieldcontain required">
             <label for="title">Title<span class="required-indicator">*</span></label>
             <input type="text" id="title" name="title" required data-ng-model="item.title">
+            <span class="error">{{errors.title}}</span>
         </div>
     </fieldset>
     <fieldset class="buttons">
-        <button type="submit" class="save">Create</button>
+        <button type="submit" class="save" data-ng-disabled="form.$invalid">Create</button>
     </fieldset>
 </form>

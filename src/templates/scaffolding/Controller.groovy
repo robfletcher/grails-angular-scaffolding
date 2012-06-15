@@ -84,16 +84,17 @@ class ${className}Controller {
         def responseJson = [:]
         try {
             ${propertyName}.delete(flush: true)
-            responseJson.status = 'ok'
             responseJson.message = message(code: 'default.deleted.message', args: [message(code: '${domainClass.propertyName}.label', default: '${className}'), params.id])
         } catch (DataIntegrityViolationException e) {
-            responseJson.status = 'error'
+            response.status = SC_CONFLICT
             responseJson.message = message(code: 'default.not.deleted.message', args: [message(code: '${domainClass.propertyName}.label', default: '${className}'), params.id])
         }
         render responseJson as JSON
     }
 
     private void notFound(id) {
-        response.sendError SC_NOT_FOUND, message(code: 'default.not.found.message', args: [message(code: '${domainClass.propertyName}.label', default: '${className}'), params.id])
+        response.status = SC_NOT_FOUND
+        def responseJson = [message: message(code: 'default.not.found.message', args: [message(code: '${domainClass.propertyName}.label', default: '${className}'), params.id])]
+        render responseJson as JSON
     }
 }

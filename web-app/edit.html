@@ -1,19 +1,21 @@
 <h1>Edit Album</h1>
-<form data-ng-submit="update(item)">
+<form name="form" data-ng-submit="update(item)">
 	<input type="hidden" data-ng-model="item.id">
 	<input type="hidden" data-ng-model="item.version">
 	<fieldset class="form">
 		<div class="fieldcontain required">
 			<label for="artist">Artist<span class="required-indicator">*</span></label>
 			<input type="text" id="artist" name="artist" required data-ng-model="item.artist">
-		</div>
+            <span class="error">{{errors.artist}}</span>
+        </div>
 		<div class="fieldcontain required">
 			<label for="title">Title<span class="required-indicator">*</span></label>
 			<input type="text" id="title" name="title" required data-ng-model="item.title">
-		</div>
+            <span class="error">{{errors.artist}}</span>
+        </div>
 	</fieldset>
 	<fieldset class="buttons">
-		<button type="submit" class="save">Update</button>
+		<button type="submit" class="save" data-ng-disabled="form.$invalid">Update</button>
 		<button type="button" class="delete" data-ng-click="delete(item)">Delete</button>
 	</fieldset>
 </form>

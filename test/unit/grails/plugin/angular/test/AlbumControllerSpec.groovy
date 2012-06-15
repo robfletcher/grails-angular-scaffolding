@@ -177,7 +177,7 @@ class AlbumControllerSpec extends Specification {
         response.status == SC_OK
 
         and:
-        response.contentAsJSON.status == 'ok'
+        response.contentAsJSON.message == 'default.deleted.message'
 
         and:
         Album.count() == old(Album.count()) - 1
