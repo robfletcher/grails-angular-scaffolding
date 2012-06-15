@@ -1,16 +1,12 @@
-casper.start 'http://localhost:8080/grails-ng/test-data/reset', ->
+casper.start 'http://localhost:8080/test-data/reset', ->
     @test.assertTextExists 'OK', 'test data is reset'
 
-casper.thenOpen 'http://localhost:8080/grails-ng/album#/create', ->
+casper.thenOpen 'http://localhost:8080/album#/create', ->
     @test.info 'when a new item is saved'
     @fill 'form',
         artist: 'Yeasayer'
         title: 'Fragrant World'
     @click 'button.save'
-
-casper.then ->
-    @wait 2000
-    @captureSelector 'target/test-reports/images/created.png', 'body'
 
 #casper.then ->
 #    @waitFor ->

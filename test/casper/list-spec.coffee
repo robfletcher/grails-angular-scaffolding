@@ -4,10 +4,10 @@ getAlbums = ->
 
 albums = []
 
-casper.start 'http://localhost:8080/grails-ng/test-data/reset', ->
+casper.start 'http://localhost:8080/test-data/reset', ->
     @test.assertTextExists 'OK', 'test data is reset'
 
-casper.thenOpen 'http://localhost:8080/grails-ng/album', ->
+casper.thenOpen 'http://localhost:8080/album', ->
     @test.info 'scaffolded page opens list view by default'
     @test.assertHttpStatus 200, 'page loads successfully'
     @test.assertUrlMatch /#\/list$/, 'list view is loaded'
