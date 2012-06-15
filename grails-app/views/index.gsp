@@ -103,11 +103,14 @@
 			</ul>
 		</div>
 		<div id="page-body" role="main">
-			<h1>Welcome to Grails</h1>
-			<p>Congratulations, you have successfully started your first Grails application! At the moment
-			   this is the default page, feel free to modify it to either redirect to a controller or display whatever
-			   content you may choose. Below is a list of controllers that are currently deployed in this application,
-			   click on each to execute its default action:</p>
+			<h1>Grails with Angular.js</h1>
+			<p>This is a demo of <a href="http://grails.org/" rel="external">Grails</a> scaffolding using <a href="http://angularjs.org/" rel="external">Angular.js</a>.</p>
+            <p>This is an in-progress Grails plugin. See:
+                <ul>
+                    <li><a href="https://github.com/robfletcher/grails-angular-scaffolding">Source code</a></li>
+                    <li><a href="https://github.com/robfletcher/grails-angular-scaffolding/issues">Issues</a></li>
+                </ul>
+            </p>
 
 			<div id="controller-list" role="navigation">
 				<h2>Available Controllers:</h2>
