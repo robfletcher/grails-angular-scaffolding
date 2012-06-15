@@ -107,7 +107,7 @@ class AlbumControllerSpec extends Specification {
         controller.save()
 
         then:
-        response.status == SC_UNPROCESSABLE_ENTITY
+        response.status == grails.plugin.angular.test.AlbumController.SC_UNPROCESSABLE_ENTITY
 
         and:
         def json = response.contentAsJSON
@@ -160,7 +160,7 @@ class AlbumControllerSpec extends Specification {
         controller.update()
 
         then:
-        response.status == SC_UNPROCESSABLE_ENTITY
+        response.status == grails.plugin.angular.test.AlbumController.SC_UNPROCESSABLE_ENTITY
 
         and:
         def json = response.contentAsJSON
