@@ -1,6 +1,17 @@
 package grails.plugin.angular.test
 
+import grails.util.GrailsUtil
+
+import static javax.servlet.http.HttpServletResponse.SC_FORBIDDEN
+
 class TestDataController {
+
+    def beforeInterceptor = {
+        if (GrailsUtil.environment == 'prod') {
+            response.sendError SC_FORBIDDEN, 'Not available in production environment'
+            return false
+        }
+    }
 
 	def reset() {
 		try {
