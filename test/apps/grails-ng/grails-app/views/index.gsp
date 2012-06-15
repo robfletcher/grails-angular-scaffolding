@@ -104,14 +104,12 @@
         </div>
         <div id="page-body" role="main">
             <h1>Grails with Angular.js</h1>
-            <p>This is a demo of <a href="http://grails.org/" rel="external">Grails</a> scaffolding using <a href="http://angularjs.org/" rel="external">Angular.js</a>.</p>
-            <p>This is an in-progress Grails plugin. See:
-            <ul>
-                <li><a href="https://github.com/robfletcher/grails-angular-scaffolding">Source code</a></li>
-                <li><a href="https://github.com/robfletcher/grails-angular-scaffolding/issues">Issues</a></li>
-            </ul>
-        </p>
-
+            <p>This is a demo of <a href="http://grails.org/" rel="external">Grails</a> scaffolding using
+                <a href="http://angularjs.org/" rel="external">Angular.js</a>.</p>
+            <p>This is an in-progress Grails plugin. See the
+                <a href="https://github.com/robfletcher/grails-angular-scaffolding">source code</a> and
+                <a href="https://github.com/robfletcher/grails-angular-scaffolding/issues">issues list</a> on GitHub.
+                Any contributions, comments, bug reports etc. are very welcome.</p>
             <div id="controller-list" role="navigation">
                 <h2>Available Controllers:</h2>
                 <ul>
