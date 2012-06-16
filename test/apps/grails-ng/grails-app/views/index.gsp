@@ -3,18 +3,76 @@
     <head>
         <meta name="layout" content="main"/>
         <title>Welcome to Grails</title>
+		<link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+		<style>
+			.hero-unit {
+				background-color: #68B940 !important;
+				/*color: #efefef;*/
+			}
+			.hero-unit p a {
+				color: #efefef;
+			}
+			.hero-unit p a:hover {
+				color: #fff;
+			}
+			.hero-unit h1 {
+				font-family: 'ChunkFiveRegular', serif;
+				font-weight: normal;
+				text-transform: uppercase;
+			}
+			.hero-unit .actions .btn {
+				font-size: 18px;
+				margin-right: 10px;
+				padding: 13px 22px 13px 74px;
+				position: relative;
+				text-align: left;
+				white-space: nowrap;
+			}
+			.hero-unit .actions .btn {
+				background-color: hsl(0, 0%, 79%);
+				background-repeat: repeat-x;
+				background-image: -khtml-gradient(linear, left top, left bottom, from(hsl(0, 0%, 121%)), to(hsl(0, 0%, 79%)));
+				background-image: -moz-linear-gradient(top, hsl(0, 0%, 121%), hsl(0, 0%, 79%));
+				background-image: -ms-linear-gradient(top, hsl(0, 0%, 121%), hsl(0, 0%, 79%));
+				background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, hsl(0, 0%, 121%)), color-stop(100%, hsl(0, 0%, 79%)));
+				background-image: -webkit-linear-gradient(top, hsl(0, 0%, 121%), hsl(0, 0%, 79%));
+				background-image: -o-linear-gradient(top, hsl(0, 0%, 121%), hsl(0, 0%, 79%));
+				background-image: linear-gradient(hsl(0, 0%, 121%), hsl(0, 0%, 79%));
+				border-color: hsl(0, 0%, 79%) hsl(0, 0%, 79%) hsl(0, 0%, 68.5%);
+				color: #333;
+				text-shadow: 0 1px 1px rgba(255, 255, 255, 0.69);
+				-webkit-font-smoothing: antialiased;
+			}
+			.hero-unit .actions [class^="icon-"] {
+				font-size: 46px;
+				left: 22px;
+				position: absolute;
+				vertical-align: text-top;
+			}
+		</style>
     </head>
     <body>
 		<div class="hero-unit">
-			<h1>Grails with Angular.js</h1>
+			<h1>Grails &amp; Angular.js</h1>
 			<p>This is a demo of <a href="http://grails.org/" rel="external">Grails</a> scaffolding using
 				<a href="http://angularjs.org/" rel="external">Angular.js</a>.</p>
-			<p>This is an in-progress Grails plugin. See the
-				<a href="https://github.com/robfletcher/grails-angular-scaffolding">source code</a> and
-				<a href="https://github.com/robfletcher/grails-angular-scaffolding/issues">issues list</a> on GitHub.
-			Any contributions, comments, bug reports etc. are very welcome.</p>
+			<p>This is an in-progress Grails plugin. Any contributions, comments, bug reports etc. are very welcome.</p>
+			<div class="actions">
+				<a class="btn btn-large" href="https://github.com/robfletcher/grails-angular-scaffolding"><i class="icon-github"></i> Fork me<br>on GitHub</a>
+				<a class="btn btn-large" href="https://github.com/robfletcher/grails-angular-scaffolding/issues"><i class="icon-inbox"></i> View<br>issues</a>
+				<a class="btn btn-large" href="http://twitter.com/rfletcherEW"><i class="icon-twitter"></i> Follow me<br>on Twitter</a>
+			</div>
 		</div>
 		<div class="row">
+			<div class="span4">
+				<h2>Built with&hellip;</h2>
+				<ul class="unstyled">
+					<li><a href="http://grails.org/">Grails</a></li>
+					<li><a href="http://angularjs.org/">Angular JS</a></li>
+					<li><a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a></li>
+					<li><a href="http://fortawesome.github.com/Font-Awesome/">Font Awesome</a></li>
+				</ul>
+			</div>
 			<div class="span4">
 				<h2>Application Status</h2>
 				<dl class="dl-horizontal">
