@@ -6,22 +6,25 @@
 		<link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
 		<style>
 			.hero-unit {
-				background-color: #68B940 !important;
-				/*color: #efefef;*/
-			}
-			.hero-unit p a {
-				color: #efefef;
-			}
-			.hero-unit p a:hover {
-				color: #fff;
+				background-color: #68B940 ;
+				background-image: -webkit-gradient(linear, left top, left bottom, from(#68B940 ), to(#48802c));
+				background-image: -webkit-linear-gradient(top, #68B940 , #48802c);
+				background-image:    -moz-linear-gradient(top, #68B940 , #48802c);
+				background-image:      -o-linear-gradient(top, #68B940 , #48802c);
+				background-image:         linear-gradient(to bottom, #68B940 , #48802c);
 			}
 			.hero-unit h1 {
-				font-family: 'ChunkFiveRegular', serif;
+				font-family: cursive;
 				font-weight: normal;
-				text-transform: uppercase;
+			}
+			.hero-unit h1 img {
+				margin-bottom: 10px;
+				max-height: 43px;
+				vertical-align: middle;
 			}
 			.hero-unit .actions .btn {
 				font-size: 18px;
+				margin-bottom: 10px;
 				margin-right: 10px;
 				padding: 13px 22px 13px 74px;
 				position: relative;
@@ -53,13 +56,14 @@
     </head>
     <body>
 		<div class="hero-unit">
-			<h1>Grails &amp; Angular.js</h1>
-			<p>This is a demo of <a href="http://grails.org/" rel="external">Grails</a> scaffolding using
-				<a href="http://angularjs.org/" rel="external">Angular.js</a>.</p>
+			<h1><a href="http://grails.org/" rel="external" title="Grails"><r:img dir="images" file="grails_logo.png" alt="Grails"/></a> &amp;
+				<a href="http://angularjs.org/" rel="external" title="Angular.js"><r:img dir="images" file="AngularJS-large.png" alt="Angular.js"/></a></h1>
+			<p>This is a demo of <em>Grails</em> scaffolding using <em>Angular.js</em>.</p>
 			<p>This is an in-progress Grails plugin. Any contributions, comments, bug reports etc. are very welcome.</p>
 			<div class="actions">
+				<g:link controller="album" class="btn btn-large"><i class="icon-road"></i> Try the<br>demo</g:link>
+				<a class="btn btn-large" href="https://github.com/robfletcher/grails-angular-scaffolding/issues"><i class="icon-exclamation-sign"></i> Raise an<br>issue</a>
 				<a class="btn btn-large" href="https://github.com/robfletcher/grails-angular-scaffolding"><i class="icon-github"></i> Fork me<br>on GitHub</a>
-				<a class="btn btn-large" href="https://github.com/robfletcher/grails-angular-scaffolding/issues"><i class="icon-inbox"></i> View<br>issues</a>
 				<a class="btn btn-large" href="http://twitter.com/rfletcherEW"><i class="icon-twitter"></i> Follow me<br>on Twitter</a>
 			</div>
 		</div>
@@ -76,7 +80,7 @@
 			<div class="span4">
 				<h2>Application Status</h2>
 				<dl class="dl-horizontal">
-					<dt>App version:</dt><dd><g:meta name="app.version"/></dd>
+					<dt>App version</dt><dd><g:meta name="app.version"/></dd>
 					<dt>Grails version</dt><dd><g:meta name="app.grails.version"/></dd>
 					<dt>Groovy version</dt><dd>${org.codehaus.groovy.runtime.InvokerHelper.getVersion()}</dd>
 					<dt>JVM version</dt><dd>${System.getProperty('java.version')}</dd>
