@@ -1,5 +1,9 @@
 modules = {
-    application {
-        resource url:'js/application.js'
-    }
+	bootstrap {
+		resource url: 'bootstrap/css/bootstrap.min.css'
+		resource url: 'bootstrap/js/bootstrap.min.js'
+	}
+	'font-awesome' {
+		resource url: 'font-awesome/css/font-awesome.css'
+	}
 }

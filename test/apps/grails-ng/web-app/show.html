@@ -1,15 +1,13 @@
-<h1>Show Album</h1>
-<ol class="property-list">
-	<li class="fieldcontain">
-		<span id="artist-label" class="property-label">Artist</span>
-		<span class="property-value" aria-labelledby="artist-label">{{item.artist}}</span>
-	</li>
-	<li class="fieldcontain">
-		<span id="title-label" class="property-label">Title</span>
-		<span class="property-value" aria-labelledby="title-label">{{item.title}}</span>
-	</li>
-</ol>
-<fieldset class="buttons">
-	<a class="edit" href="#edit/{{item.id}}">Edit</a>
-	<button type="button" class="delete" data-ng-click="delete(item)">Delete</button>
-</fieldset>
+<div class="page-header">
+	<h1>Show Album</h1>
+</div>
+<dl class="dl-horizontal">
+	<dt>Artist</dt>
+	<dd>{{item.artist}}</dd>
+	<dt>Title</dt>
+	<dd>{{item.title}}</dd>
+</dl>
+<div class="form-actions">
+	<a class="btn" href="#edit/{{item.id}}"><i class="icon-edit"></i> Edit</a>
+	<button type="button" class="btn btn-danger" data-ng-click="delete(item)"><i class="icon-trash"></i> Delete</button>
+</div>

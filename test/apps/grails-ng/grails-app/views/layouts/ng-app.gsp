@@ -20,15 +20,15 @@
 			}
 		</style>
 		<g:layoutHead/>
-		<r:layoutResources />
+        <r:layoutResources />
 	</head>
-	<body>
+	<body data-ng-app="${pageProperty(name: 'body.data-ng-app')}" data-base-url="${pageProperty(name: 'body.data-base-url')}">
 		<g:render template="/templates/navbar"/>
 		<div class="container">
 			<g:layoutBody/>
 			<hr>
 			<footer>&copy; <a href="http://freeside.co/">Freeside Software</a> 2012</footer>
 		</div>
-        <r:layoutResources />
+		<r:layoutResources />
 	</body>
 </html>

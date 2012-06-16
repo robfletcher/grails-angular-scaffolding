@@ -1,18 +1,22 @@
-<h1>Create Album</h1>
-<form name="form" data-ng-submit="save(item)">
-    <fieldset class="form">
-        <div class="fieldcontain required">
-            <label for="artist">Artist<span class="required-indicator">*</span></label>
-            <input type="text" id="artist" name="artist" required data-ng-model="item.artist">
-            <span class="error">{{errors.artist}}</span>
-        </div>
-        <div class="fieldcontain required">
-            <label for="title">Title<span class="required-indicator">*</span></label>
-            <input type="text" id="title" name="title" required data-ng-model="item.title">
-            <span class="error">{{errors.title}}</span>
-        </div>
-    </fieldset>
-    <fieldset class="buttons">
-        <button type="submit" class="save" data-ng-disabled="form.$invalid">Create</button>
-    </fieldset>
+<div class="page-header">
+	<h1>Create Album</h1>
+</div>
+<form name="form" data-ng-submit="save(item)" class="form-horizontal">
+	<div class="control-group">
+		<label class="control-label" for="artist">Artist</label>
+		<div class="controls">
+			<input type="text" id="artist" name="artist" required data-ng-model="item.artist">
+			<span class="help-inline">{{errors.artist}}</span>
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="title">Title</label>
+		<div class="controls">
+			<input type="text" id="title" name="title" required data-ng-model="item.title">
+			<span class="help-inline">{{errors.title}}</span>
+		</div>
+	</div>
+	<div class="form-actions">
+		<button type="submit" class="btn btn-primary" data-ng-disabled="form.$invalid"><i class="icon-ok"></i> Create</button>
+	</div>
 </form>
