@@ -9,5 +9,6 @@ modules = {
 	}
 	'ui-common' {
 		dependsOn 'bootstrap', 'font-awesome'
+		resource url: 'css/ui-common.css'
 	}
 }
