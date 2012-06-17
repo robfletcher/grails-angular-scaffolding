@@ -12,15 +12,21 @@
 				background-image:    -moz-linear-gradient(top, #68B940 , #48802c);
 				background-image:      -o-linear-gradient(top, #68B940 , #48802c);
 				background-image:         linear-gradient(to bottom, #68B940 , #48802c);
+
+				text-shadow: 0 1px 1px #9b9;
 			}
 			.hero-unit h1 {
 				font-family: cursive;
+				font-size: 43px !important;
 				font-weight: normal;
 			}
 			.hero-unit h1 img {
 				margin-bottom: 10px;
 				max-height: 43px;
 				vertical-align: middle;
+			}
+			.hero-unit .actions {
+				margin-top: 30px;
 			}
 			.hero-unit .actions .btn {
 				font-size: 18px;
@@ -52,6 +58,14 @@
 				position: absolute;
 				vertical-align: text-top;
 			}
+			img.avatar {
+				width: 48px;
+				height: 48px;
+				-webkit-border-radius: 5px;
+				border-radius: 5px;
+				margin-left: 10px;
+				margin-bottom: 10px;
+			}
 		</style>
     </head>
     <body>
@@ -63,41 +77,69 @@
 			<div class="actions">
 				<g:link controller="album" class="btn btn-large"><i class="icon-road"></i> Try the<br>demo</g:link>
 				<a class="btn btn-large" href="https://github.com/robfletcher/grails-angular-scaffolding/issues"><i class="icon-exclamation-sign"></i> Raise an<br>issue</a>
-				<a class="btn btn-large" href="https://github.com/robfletcher/grails-angular-scaffolding"><i class="icon-github"></i> Fork me<br>on GitHub</a>
-				<a class="btn btn-large" href="http://twitter.com/rfletcherEW"><i class="icon-twitter"></i> Follow me<br>on Twitter</a>
+				<a class="btn btn-large" href="https://github.com/robfletcher/grails-angular-scaffolding"><i class="icon-github"></i> Fork<br>on GitHub</a>
 			</div>
 		</div>
 		<div class="row">
 			<div class="span4">
-				<h2>Built with&hellip;</h2>
-				<ul class="unstyled">
-					<li><a href="http://grails.org/">Grails</a></li>
-					<li><a href="http://angularjs.org/">Angular JS</a></li>
-					<li><a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a></li>
-					<li><a href="http://fortawesome.github.com/Font-Awesome/">Font Awesome</a></li>
+				<h2><i class="icon-wrench"></i> Built with&hellip;</h2>
+				<p>This application is designed as a test for an experimental scaffolding plugin. Core to the plugin are:</p>
+				<ul class="nav nav-list">
+					<li><a href="http://grails.org/"><i class="icon-external-link"></i> Grails</a></li>
+					<li><a href="http://angularjs.org/"><i class="icon-external-link"></i> Angular JS</a></li>
+				</ul>
+				<p>Additionally the demo application uses the following libraries:</p>
+				<ul class="nav nav-list">
+					<li><a href="http://twitter.github.com/bootstrap/"><i class="icon-external-link"></i> Twitter Bootstrap</a></li>
+					<li><a href="http://fortawesome.github.com/Font-Awesome/"><i class="icon-external-link"></i> Font Awesome</a></li>
 				</ul>
 			</div>
 			<div class="span4">
-				<h2>Application Status</h2>
-				<dl class="dl-horizontal">
-					<dt>App version</dt><dd><g:meta name="app.version"/></dd>
-					<dt>Grails version</dt><dd><g:meta name="app.grails.version"/></dd>
-					<dt>Groovy version</dt><dd>${org.codehaus.groovy.runtime.InvokerHelper.getVersion()}</dd>
-					<dt>JVM version</dt><dd>${System.getProperty('java.version')}</dd>
-					<dt>Reloading active</dt><dd>${grails.util.Environment.reloadingAgentEnabled}</dd>
-					<dt>Controllers</dt><dd>${grailsApplication.controllerClasses.size()}</dd>
-					<dt>Domains</dt><dd>${grailsApplication.domainClasses.size()}</dd>
-					<dt>Services</dt><dd>${grailsApplication.serviceClasses.size()}</dd>
-					<dt>Tag Libraries</dt><dd>${grailsApplication.tagLibClasses.size()}</dd>
-				</dl>
+				<h2><i class="icon-user"></i> Built by&hellip;</h2>
+				<r:img class="avatar pull-right" uri="/images/avatar.jpg"/>
+				<h3>Rob Fletcher</h3>
+				<ul class="nav nav-list">
+					<li><a href="http://freeside.co/"><i class="icon-home icon-large"></i> Freeside Software</a></li>
+					<li><a href="http://twitter.com/rfletcherEW"><i class="icon-twitter icon-large"></i> Follow me on Twitter</a></li>
+					<li><a href="http://github.com/robfletcher"><i class="icon-github icon-large"></i> See my other projects on GitHub</a></li>
+				</ul>
+				<r:img class="avatar pull-right" uri="/images/hipsterdevstack.png"/>
+				<h3>Hipster Dev Stack</h3>
+				<ul class="nav nav-list">
+					<li><a href="http://hipsterdevstack.tumblr.com/"><i class="icon-rss"></i> Tumblr</a></li>
+					<li><a href="http://twitter.com/hipsterdevstack"><i class="icon-twitter"></i> Twitter</a></li>
+				</ul>
 			</div>
 			<div class="span4">
-				<h2>Installed Plugins</h2>
-				<dl class="dl-horizontal">
-					<g:each var="plugin" in="${applicationContext.getBean('pluginManager').allPlugins}">
-						<dt>${plugin.name}</dt><dd>${plugin.version}</dd>
-					</g:each>
-				</dl>
+				<h2><i class="icon-dashboard"></i> Status</h2>
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#status" data-toggle="tab">Application Status</a></li>
+					<li><a href="#plugins" data-toggle="tab">Installed Plugins</a></li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active" id="status">
+						<dl class="dl-horizontal">
+							<dt>App version</dt><dd><g:meta name="app.version"/></dd>
+							<dt>Grails version</dt><dd><g:meta name="app.grails.version"/></dd>
+							<dt>Groovy version</dt><dd>${org.codehaus.groovy.runtime.InvokerHelper.getVersion()}</dd>
+							<dt>JVM version</dt><dd>${System.getProperty('java.version')}</dd>
+							<dt>Reloading active</dt><dd>${grails.util.Environment.reloadingAgentEnabled}</dd>
+							<dt>Controllers</dt><dd>${grailsApplication.controllerClasses.size()}</dd>
+							<dt>Domains</dt><dd>${grailsApplication.domainClasses.size()}</dd>
+							<dt>Services</dt><dd>${grailsApplication.serviceClasses.size()}</dd>
+							<dt>Tag Libraries</dt><dd>${grailsApplication.tagLibClasses.size()}</dd>
+						</dl>
+					</div>
+					<div class="tab-pane" id="plugins">
+						<dl class="dl-horizontal">
+							<g:each var="plugin" in="${applicationContext.getBean('pluginManager').allPlugins}">
+								<dt>${plugin.name}</dt><dd>${plugin.version}</dd>
+							</g:each>
+						</dl>
+					</div>
+				</div>
+			</div>
+			<div class="span4">
 	        </div>
 		</div>
     </body>
