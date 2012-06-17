@@ -78,12 +78,8 @@ function EditCtrl($scope, $routeParams, $location, Grails) {
     };
 
     $scope.delete = function(item) {
-        item.$delete(function(result) {
-            if (result.status == 'ok') {
-                $location.path('/list');
-            } else {
-                console.error(result);
-            }
+        item.$delete(function(response) {
+			$location.path('/list');
         });
     };
 }
