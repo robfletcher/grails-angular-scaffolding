@@ -8,7 +8,7 @@ casper.fill = (selector, values) ->
         values: values
 
 casper.start 'http://localhost:8080/test-data/reset', ->
-    @test.assertTextExists 'OK', 'test data is reset'
+    @test.assertHttpStatus 200, 'test data is reset'
 
 casper.thenOpen 'http://localhost:8080/album#/create', ->
     @test.info 'when a new item is saved'

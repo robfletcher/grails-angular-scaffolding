@@ -1,30 +1,31 @@
 package grails.plugin.angular.test
 
+import grails.converters.JSON
 import grails.util.GrailsUtil
-
 import static javax.servlet.http.HttpServletResponse.SC_FORBIDDEN
 
 class TestDataController {
 
-    def beforeInterceptor = {
-        if (GrailsUtil.environment == 'prod') {
-            response.sendError SC_FORBIDDEN, 'Not available in production environment'
-            return false
-        }
-    }
+//	def beforeInterceptor = {
+//		if (GrailsUtil.environment == 'prod') {
+//			response.sendError SC_FORBIDDEN, 'Not available in production environment'
+//			return false
+//		} else {
+//			return true
+//		}
+//	}
 
 	def reset() {
-		try {
-			for (album in Album.list()) album.delete()
+		for (album in Album.list()) album.delete()
 
-			new Album(artist: 'Edward Sharpe and the Magnetic Zeroes', title: 'Here').save(failOnError: true)
-			new Album(artist: 'Metric', title: 'Synthetica').save(failOnError: true)
-			new Album(artist: 'Santigold', title: 'Master of My Make Believe').save(failOnError: true)
+		def albums = []
+		albums << new Album(artist: 'Edward Sharpe and the Magnetic Zeroes', title: 'Here').save(failOnError: true)
+		albums << new Album(artist: 'Metric', title: 'Synthetica').save(failOnError: true)
+		albums << new Album(artist: 'Santigold', title: 'Master of My Make Believe').save(failOnError: true)
+		albums << new Album(artist: 'Cut Copy', title: 'Zonoscope').save(failOnError: true)
+		albums << new Album(artist: 'Handsome Furs', title: 'Sound Kapital').save(failOnError: true)
 
-			render 'OK'
-		} catch (e) {
-			render "ERROR: $e.message"
-		}
+		render view: 'reset', model: [data: albums]
 	}
 
 }
