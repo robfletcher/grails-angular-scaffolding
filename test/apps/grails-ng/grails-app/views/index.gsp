@@ -34,8 +34,7 @@
 
 			<div class="span4">
 				<h2><i class="icon-user"></i> Built by&hellip;</h2>
-				<r:img class="avatar pull-right" uri="/images/avatar.jpg"/>
-				<h3>Rob Fletcher</h3>
+				<h3><r:img class="avatar" uri="/images/avatar.jpg"/> Rob Fletcher</h3>
 				<ul class="nav nav-list">
 					<li><a href="http://freeside.co/"><i class="icon-home icon-large"></i> Freeside Software</a></li>
 					<li><a href="http://twitter.com/rfletcherEW"><i class="icon-twitter icon-large"></i> Follow me on Twitter</a></li>
