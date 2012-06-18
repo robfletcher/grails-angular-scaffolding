@@ -3,6 +3,7 @@ target
 *.log
 /*.zip
 /plugin.xml
+*.db
 
 # IntelliJ stuff
 .idea
