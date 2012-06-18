@@ -28,12 +28,14 @@ class ${className}Controller {
                 [(it.field): message(error: it)]
             }
         }
+		cache false
         render responseJson as JSON
     }
 
     def get() {
         def ${propertyName} = ${className}.get(params.id)
         if (${propertyName}) {
+			cache false
 			render ${propertyName} as JSON
         } else {
 			notFound params.id
@@ -71,7 +73,8 @@ class ${className}Controller {
             }
         }
 
-        render responseJson as JSON
+		cache false
+		render responseJson as JSON
     }
 
     def delete() {
@@ -89,7 +92,8 @@ class ${className}Controller {
             response.status = SC_CONFLICT
             responseJson.message = message(code: 'default.not.deleted.message', args: [message(code: '${domainClass.propertyName}.label', default: '${className}'), params.id])
         }
-        render responseJson as JSON
+		cache false
+		render responseJson as JSON
     }
 
     private void notFound(id) {

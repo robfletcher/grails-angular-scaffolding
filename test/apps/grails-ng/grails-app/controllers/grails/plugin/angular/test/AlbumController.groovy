@@ -30,12 +30,14 @@ class AlbumController {
                 [(it.field): message(error: it)]
             }
         }
+		cache false
         render responseJson as JSON
     }
 
     def get() {
         def albumInstance = Album.get(params.id)
         if (albumInstance) {
+			cache false
 			render albumInstance as JSON
         } else {
 			notFound params.id
@@ -73,7 +75,8 @@ class AlbumController {
             }
         }
 
-        render responseJson as JSON
+		cache false
+		render responseJson as JSON
     }
 
     def delete() {
@@ -91,7 +94,8 @@ class AlbumController {
             response.status = SC_CONFLICT
             responseJson.message = message(code: 'default.not.deleted.message', args: [message(code: 'album.label', default: 'Album'), params.id])
         }
-        render responseJson as JSON
+		cache false
+		render responseJson as JSON
     }
 
     private void notFound(id) {
