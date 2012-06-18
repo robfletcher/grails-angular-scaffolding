@@ -40,12 +40,7 @@
 					<li><a href="http://freeside.co/"><i class="icon-home icon-large"></i> Freeside Software</a></li>
 					<li><a href="http://twitter.com/rfletcherEW"><i class="icon-twitter icon-large"></i> Follow me on Twitter</a></li>
 					<li><a href="http://github.com/robfletcher"><i class="icon-github icon-large"></i> See my other projects on GitHub</a></li>
-				</ul>
-				<r:img class="avatar pull-right" uri="/images/hipsterdevstack.png"/>
-				<h3>Hipster Dev Stack</h3>
-				<ul class="nav nav-list">
-					<li><a href="http://hipsterdevstack.tumblr.com/"><i class="icon-rss"></i> Tumblr</a></li>
-					<li><a href="http://twitter.com/hipsterdevstack"><i class="icon-twitter"></i> Twitter</a></li>
+					<li><a href="http://hipsterdevstack.tumblr.com/"><i class="icon-rss"></i> Hipster Dev Stack</a></li>
 				</ul>
 			</div>
 
