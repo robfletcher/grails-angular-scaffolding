@@ -34,13 +34,9 @@ function ShowCtrl($scope, $routeParams, $location, Grails) {
     $scope.item = Grails.get({id: $routeParams.id});
 
     $scope.delete = function(item) {
-        item.$delete(function(result) {
-            if (result.status == 'ok') {
-                $location.path('/list');
-            } else {
-                console.error(result);
-            }
-        });
+		item.$delete(function(response) {
+			$location.path('/list');
+		});
     };
 }
 
