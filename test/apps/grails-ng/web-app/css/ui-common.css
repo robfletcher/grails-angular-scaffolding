@@ -1,3 +1,8 @@
+.navbar .twitter-share-button {
+	float: right;
+	margin: 8px 0 12px 20px;
+}
+
 .hero-unit {
 	background-color: #68B940 ;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#68B940 ), to(#48802c));

@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta name="layout" content="main"/>
-        <title>Welcome to Grails</title>
+        <title>Grails Angular.js Scaffolding</title>
     </head>
     <body>
 		<div class="hero-unit">
@@ -16,6 +16,7 @@
 				<a class="btn btn-large" href="https://github.com/robfletcher/grails-angular-scaffolding"><i class="icon-github"></i> Fork<br>on GitHub</a>
 			</div>
 		</div>
+
 		<div class="row">
 			<div class="span4">
 				<h2><i class="icon-wrench"></i> Built with&hellip;</h2>
@@ -30,6 +31,7 @@
 					<li><a href="http://fortawesome.github.com/Font-Awesome/"><i class="icon-external-link"></i> Font Awesome</a></li>
 				</ul>
 			</div>
+
 			<div class="span4">
 				<h2><i class="icon-user"></i> Built by&hellip;</h2>
 				<r:img class="avatar pull-right" uri="/images/avatar.jpg"/>
@@ -46,6 +48,7 @@
 					<li><a href="http://twitter.com/hipsterdevstack"><i class="icon-twitter"></i> Twitter</a></li>
 				</ul>
 			</div>
+
 			<div class="span4">
 				<h2><i class="icon-dashboard"></i> Status</h2>
 				<ul class="nav nav-tabs">
@@ -75,8 +78,6 @@
 					</div>
 				</div>
 			</div>
-			<div class="span4">
-	        </div>
 		</div>
     </body>
 </html>

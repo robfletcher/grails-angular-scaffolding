@@ -9,6 +9,7 @@
 					</g:each>
 				</ul>
 			</div>
+			<g:render template="/templates/tweet-button"/>
 		</div>
 	</div>
 </div>
