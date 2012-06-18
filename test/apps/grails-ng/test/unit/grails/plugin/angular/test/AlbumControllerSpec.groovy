@@ -26,6 +26,8 @@ class AlbumControllerSpec extends Specification {
     }
 
     void setup() {
+		AlbumController.metaClass.cache = {}
+
         new Album(artist: 'Edward Sharpe and the Magnetic Zeroes', title: 'Here').save(failOnError: true, flush: true)
         new Album(artist: 'Metric', title: 'Synthetica').save(failOnError: true, flush: true)
         new Album(artist: 'Santigold', title: 'Master of My Make Believe').save(failOnError: true, flush: true)
