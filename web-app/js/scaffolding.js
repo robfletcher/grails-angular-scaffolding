@@ -31,7 +31,11 @@ function ListCtrl($scope, $location, Grails) {
 }
 
 function ShowCtrl($scope, $routeParams, $location, Grails) {
-	$scope.item = Grails.get({id: $routeParams.id});
+	Grails.get({id: $routeParams.id}, function(item) {
+		$scope.item = item;
+	}, function() {
+		$location.path('/list');
+	});
 
 	$scope.delete = function(item) {
 		item.$delete(function(response) {
@@ -56,7 +60,11 @@ function CreateCtrl($scope, $location, Grails) {
 }
 
 function EditCtrl($scope, $routeParams, $location, Grails) {
-	$scope.item = Grails.get({id: $routeParams.id});
+	Grails.get({id: $routeParams.id}, function(item) {
+		$scope.item = item;
+	}, function() {
+		$location.path('/list');
+	});
 
 	$scope.update = function(item) {
 		item.$update(function(response) {
