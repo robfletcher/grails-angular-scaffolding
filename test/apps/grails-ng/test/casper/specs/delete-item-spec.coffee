@@ -15,9 +15,7 @@ casper.then ->
 
 casper.then ->
     @test.assertUrlMatch /#\/show\/\d+$/, 'show view is loaded'
-    @waitFor ->
-        @fetchText('[data-ng-bind="item.artist"]') != ''
-    , ->
+    @waitForSelector '[data-ng-bind="item.artist"]:not(:empty)', ->
         @test.info 'when the delete button is clicked'
         @click 'button.btn-danger'
     , ->

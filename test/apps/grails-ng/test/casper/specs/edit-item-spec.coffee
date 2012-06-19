@@ -13,10 +13,10 @@ casper.then ->
     @test.assertUrlMatch /#\/edit\/\d+$/, 'edit view is loaded'
     @test.assertEvalEquals ->
         $('input[name=artist]').val()
-    , 'Edward Sharpe and the Magnetic Zeroes', 'artist field is correct'
+    , json[0].artist, 'artist field is correct'
     @test.assertEvalEquals ->
         $('input[name=title]').val()
-    , 'Here', 'title field is correct'
+    , json[0].title, 'title field is correct'
 
 casper.then ->
     @test.info 'when the form is updated'
@@ -26,11 +26,9 @@ casper.then ->
 
 casper.then ->
     @test.info 'the show page is displayed'
-    @waitFor ->
-        /#\/show\/\d+$/.test(@getCurrentUrl()) && @fetchText('[data-ng-bind="item.artist"]') != ''
-    , ->
+    @waitForSelector '[data-ng-bind="item.artist"]:not(:empty)', ->
         @test.assertEquals @fetchText('[data-ng-bind="item.artist"]'), 'Edward Sharpe & the Magnetic Zeroes', 'album artist is correct'
-        @test.assertEquals @fetchText('[data-ng-bind="item.title"]'), 'Here', 'album title is correct'
+        @test.assertEquals @fetchText('[data-ng-bind="item.title"]'), json[0].title, 'album title is correct'
     , ->
         @test.fail 'show page should have loaded'
 

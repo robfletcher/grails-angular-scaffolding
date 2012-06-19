@@ -10,9 +10,7 @@ casper.thenOpen 'http://localhost:8080/album#/create', ->
 
 casper.then ->
     @test.info 'should go to the show page'
-    @waitFor ->
-        /#\/show\/\d+$/.test(@getCurrentUrl()) and @fetchText('[data-ng-bind="item.artist"]') isnt ''
-    , ->
+    @waitForSelector '[data-ng-bind="item.artist"]:not(:empty)', ->
         @test.info 'details should be displayed correctly'
         @test.assertEquals @fetchText('[data-ng-bind="item.artist"]'), 'Yeasayer', 'album artist is correct'
         @test.assertEquals @fetchText('[data-ng-bind="item.title"]'), 'Fragrant World', 'album title is correct'

@@ -9,9 +9,7 @@ casper.then ->
 
 casper.then ->
     @test.assertUrlMatch /#\/show\/\d+$/, 'show view is loaded'
-    @waitFor ->
-        @fetchText('[data-ng-bind="item.artist"]') != ''
-    , ->
+    @waitForSelector '[data-ng-bind="item.artist"]:not(:empty)', ->
         @test.info 'item details are displayed correctly'
         @test.assertEquals @fetchText('[data-ng-bind="item.artist"]'), json[0].artist, 'album artist is correct'
         @test.assertEquals @fetchText('[data-ng-bind="item.title"]'), json[0].title, 'album title is correct'
