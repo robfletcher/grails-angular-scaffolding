@@ -13,10 +13,17 @@ This is an experimental work-in-progress. It is far from complete. See the [issu
 
 ## Demo
 
-There is [a demo of this plugin](http://grails-ng.cloudfoundry.com/) running on Cloud Foundry
+There is [a demo of this plugin](http://grails-ng.cloudfoundry.com/) running on Cloud Foundry.
+
+The demo application is also included under `test/apps/grails-ng` in this project.
 
 ## Tests
 
 There are some simple end-to-end tests that use [Casper JS](http://casperjs.org/). To run the tests:
 
-	casperjs test test/casper
+    cd test/apps/grails-ng
+    grails run-app
+
+Then in another terminal:
+
+	casperjs test --includes=test/casper/includes/casper-angular.coffee test/casper/specs/
