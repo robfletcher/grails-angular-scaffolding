@@ -13,6 +13,7 @@ class AlbumController {
     def index() { }
 
     def list() {
+        cache false
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         render Album.list(params) as JSON
     }
