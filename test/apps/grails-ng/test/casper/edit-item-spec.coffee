@@ -14,9 +14,11 @@ casper.start 'http://localhost:8080/test-data/reset', ->
     json = JSON.parse(@fetchText('pre'))
 
 casper.then ->
+    @test.info 'when the edit page is opened'
     @open "http://localhost:8080/album#/edit/#{json[0].id}"
 
 casper.then ->
+    @test.info 'details are displayed correctly'
     @test.assertUrlMatch /#\/edit\/\d+$/, 'edit view is loaded'
     @test.assertEvalEquals ->
         $('input[name=artist]').val()
@@ -32,6 +34,7 @@ casper.then ->
     @click 'button.btn-primary'
 
 casper.then ->
+    @test.info 'the show page is displayed'
     @waitFor ->
         /#\/show\/\d+$/.test(@getCurrentUrl()) && @fetchText('[data-ng-bind="item.artist"]') != ''
     , ->
