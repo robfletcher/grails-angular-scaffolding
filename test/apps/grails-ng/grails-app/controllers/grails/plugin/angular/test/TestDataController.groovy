@@ -1,19 +1,17 @@
 package grails.plugin.angular.test
 
-import grails.converters.JSON
 import grails.util.GrailsUtil
 import static javax.servlet.http.HttpServletResponse.SC_FORBIDDEN
 
 class TestDataController {
 
-//	def beforeInterceptor = {
-//		if (GrailsUtil.environment == 'prod') {
-//			response.sendError SC_FORBIDDEN, 'Not available in production environment'
-//			return false
-//		} else {
-//			return true
-//		}
-//	}
+    def beforeInterceptor = [action: this.&filter]
+	private filter() {
+		if (GrailsUtil.environment == 'production') {
+			render status: SC_FORBIDDEN, text: 'Not available in production environment'
+			return false
+		}
+	}
 
 	def reset() {
 		for (album in Album.list()) album.delete()
