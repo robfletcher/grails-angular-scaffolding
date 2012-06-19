@@ -20,14 +20,18 @@ casper.then ->
     , ->
         @test.info 'when the delete button is clicked'
         @click 'button.btn-danger'
+    , ->
+        @test.fail 'data should have loaded into show page'
 
 casper.then ->
     @test.info 'return to the list view'
     @test.assertUrlMatch /#\/list$/, 'the list view is loaded'
-    @waitForSelector 'tbody tr:nth-child(2)', ->
+    @waitForSelector 'tbody tr:nth-child(4)', ->
         albums = @evaluate getAlbums
         @test.assertEquals albums.length, 4, 'there are now fewer items in the list'
         @test.assert json[0].title not in albums, 'the item has been deleted'
+    , ->
+        @test.fail 'data should have loaded into list page'
 
 casper.run ->
     @test.done()

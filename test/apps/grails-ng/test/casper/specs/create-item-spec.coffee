@@ -1,8 +1,7 @@
 # have to override casper's fill method to emit the 'input' event required by angular so the model updates
 casper.fill = (selector, values) ->
     @evaluate (selector, values) ->
-        for key, value of values
-            $("#{selector} [name='#{key}']").val(value).trigger('input')
+        $("#{selector} [name='#{key}']").val(value).trigger('input') for key, value of values
     ,
         selector: selector
         values: values
@@ -20,12 +19,13 @@ casper.thenOpen 'http://localhost:8080/album#/create', ->
 casper.then ->
     @test.info 'should go to the show page'
     @waitFor ->
-        /#\/show\/\d+$/.test(@getCurrentUrl()) && @fetchText('[data-ng-bind="item.artist"]') != ''
-
-casper.then ->
-    @test.info 'details should be displayed correctly'
-    @test.assertEquals @fetchText('[data-ng-bind="item.artist"]'), 'Yeasayer', 'album artist is correct'
-    @test.assertEquals @fetchText('[data-ng-bind="item.title"]'), 'Fragrant World', 'album title is correct'
+        /#\/show\/\d+$/.test(@getCurrentUrl()) and @fetchText('[data-ng-bind="item.artist"]') isnt ''
+    , ->
+        @test.info 'details should be displayed correctly'
+        @test.assertEquals @fetchText('[data-ng-bind="item.artist"]'), 'Yeasayer', 'album artist is correct'
+        @test.assertEquals @fetchText('[data-ng-bind="item.title"]'), 'Fragrant World', 'album title is correct'
+    , ->
+        @test.fail 'should have gone to the show page'
 
 casper.run ->
     @test.done()

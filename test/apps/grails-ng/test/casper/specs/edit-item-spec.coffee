@@ -1,8 +1,7 @@
 # have to override casper's fill method to emit the 'input' event required by angular so the model updates
 casper.fill = (selector, values) ->
     @evaluate (selector, values) ->
-        for key, value of values
-            $("#{selector} [name='#{key}']").val(value).trigger('input')
+        $("#{selector} [name='#{key}']").val(value).trigger('input') for key, value of values
     ,
         selector: selector
         values: values
@@ -40,6 +39,8 @@ casper.then ->
     , ->
         @test.assertEquals @fetchText('[data-ng-bind="item.artist"]'), 'Edward Sharpe & the Magnetic Zeroes', 'album artist is correct'
         @test.assertEquals @fetchText('[data-ng-bind="item.title"]'), 'Here', 'album title is correct'
+    , ->
+        @test.fail 'show page should have loaded'
 
 casper.run ->
     @test.done()
