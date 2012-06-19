@@ -1,9 +1,3 @@
-getAlbums = ->
-    albums = document.querySelectorAll 'tbody td:nth-child(2)'
-    Array:: map.call albums, (e) -> e.innerText
-
-albums = []
-
 fixture = null
 casper.start 'http://localhost:8080/test-data/reset', ->
     @test.assertHttpStatus 200, 'test data is reset'
@@ -25,9 +19,9 @@ casper.then ->
     @test.info 'return to the list view'
     @test.assertUrlMatch /#\/list$/, 'the list view is loaded'
     @waitForSelector 'tbody tr:nth-child(4)', ->
-        albums = @evaluate getAlbums
-        @test.assertEquals albums.length, 4, 'there are now fewer items in the list'
-        @test.assert fixture[0].title not in albums, 'the item has been deleted'
+        titles = @getColumn(2)
+        @test.assertEquals titles.length, 4, 'there are now fewer items in the list'
+        @test.assert fixture[0].title not in titles, 'the item has been deleted'
     , ->
         @test.fail 'data should have loaded into list page'
 

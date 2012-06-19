@@ -1,16 +1,8 @@
-getAlbums = ->
-    albums = document.querySelectorAll 'tbody td:nth-child(2)'
-    Array:: map.call albums, (e) -> e.innerText
-
-albums = []
-
 casper.start 'http://localhost:8080/test-data/reset', ->
     @test.assertHttpStatus 200, 'test data is reset'
 
 casper.thenOpen 'http://localhost:8080/album#/list', ->
     @waitForSelector 'tbody tr:nth-child(3)', ->
-        albums = @evaluate getAlbums
-
         @test.info 'clicking a row in the list'
         @click 'tbody tr:nth-child(1)'
         @test.assertUrlMatch /#\/show\/\d+$/, 'show view is loaded'
