@@ -33,8 +33,18 @@ casper.then ->
         @test.assertUrlMatch /#\/show\/\d+$/, 'now on the show page'
         @test.assert @visible('.alert'), 'alert should be visible'
         @test.assert /Album \d+ updated/.test(@fetchText('.alert')), 'item updated message should be displayed'
+
+        @click 'button.btn-danger'
     , ->
         @test.fail 'should have gone to the show page'
+
+casper.then ->
+    @waitForSelector 'tbody tr', ->
+        @test.assertUrlMatch /#\/list$/, 'now on the list page'
+        @test.assert @visible('.alert'), 'alert should be visible'
+        @test.assert /Album \d+ deleted/.test(@fetchText('.alert')), 'item deleted message should be displayed'
+    , ->
+        @test.fail 'should have gone to the list page'
 
 casper.run ->
     @test.done()

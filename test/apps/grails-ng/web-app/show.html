@@ -1,7 +1,7 @@
 <div class="page-header">
 	<h1>Show Album</h1>
 </div>
-<div class="alert alert-{{message.level}}" data-ng-show="message">{{message.text}}</div>
+<div class="alert alert-{{message.level}}" data-ng-show="message"><a class="close" data-dismiss="alert" href="#">&times;</a>{{message.text}}</div>
 <dl class="dl-horizontal">
 	<dt>Artist</dt>
 	<dd data-ng-bind="item.artist"></dd>
