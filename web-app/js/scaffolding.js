@@ -10,7 +10,7 @@ angular.module('grailsService', ['ngResource']).factory('Grails', function($reso
 	});
 });
 
-angular.module('flashService').factory('Flash', function() {
+angular.module('flashService', []).factory('Flash', function() {
 	var flash = {};
 
 	flash.get = function(key) {
@@ -22,7 +22,7 @@ angular.module('flashService').factory('Flash', function() {
 	return flash;
 });
 
-angular.module('scaffolding', ['grailsService']).config([
+angular.module('scaffolding', ['grailsService', 'flashService']).config([
 	'$routeProvider',
 	function($routeProvider) {
 		$routeProvider.
@@ -34,20 +34,20 @@ angular.module('scaffolding', ['grailsService']).config([
 	}
 ]);
 
-function ListCtrl($scope, $location, Grails, flashService) {
+function ListCtrl($scope, $location, Grails, Flash) {
 	$scope.list = Grails.list();
-	$scope.message = flashService.get('message');
+	$scope.message = Flash.get('message');
 
 	$scope.show = function(item) {
 		$location.path('/show/' + item.id);
 	};
 }
 
-function ShowCtrl($scope, $routeParams, $location, Grails, flashService) {
+function ShowCtrl($scope, $routeParams, $location, Grails, Flash) {
 	Grails.get({id: $routeParams.id}, function(item) {
 		$scope.item = item;
 	}, function(response) {
-		flashService.message = { level: 'error', text: response.data.message };
+        Flash.message = { level: 'error', text: response.data.message };
 		$location.path('/list');
 	});
 
@@ -73,11 +73,12 @@ function CreateCtrl($scope, $location, Grails) {
 	};
 }
 
-function EditCtrl($scope, $routeParams, $location, Grails) {
+function EditCtrl($scope, $routeParams, $location, Grails, Flash) {
 	Grails.get({id: $routeParams.id}, function(item) {
 		$scope.item = item;
-	}, function() {
-		$location.path('/list');
+	}, function(response) {
+        Flash.message = { level: 'error', text: response.data.message };
+        $location.path('/list');
 	});
 
 	$scope.update = function(item) {
