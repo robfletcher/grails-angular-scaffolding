@@ -85,7 +85,8 @@ function EditCtrl($scope, $routeParams, $location, Grails, Flash) {
 
 	$scope.update = function(item) {
 		item.$update(function(response) {
-			$location.path('/show/' + response.id);
+            Flash.message = { level: 'success', text: response.message };
+            $location.path('/show/' + response.id);
 		}, function(response) {
 			switch (response.status) {
 				case 409:
