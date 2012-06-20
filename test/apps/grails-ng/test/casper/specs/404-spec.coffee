@@ -16,7 +16,6 @@ casper.back()
 casper.then ->
     @test.assertUrlMatch /#\/list$/, 'returned to list page'
     @waitForSelector 'tbody tr', ->
-        @captureSelector 'list.png', 'body'
         @test.fail "no alert should be displayed but found '#{@fetchText('.alert-error')}`" if @exists('.alert-error')
 
 casper.thenOpen 'http://localhost:8080/album#/edit/1', ->
