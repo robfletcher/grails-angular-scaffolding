@@ -5,7 +5,7 @@ casper.start 'http://localhost:8080/test-data/reset', ->
 
 casper.thenOpen 'http://localhost:8080/album#/show/1', ->
     @test.assertUrlMatch /#\/list$/, 'invalid id in show URL redirects to the list page'
-    @test.assertEquals @fetchText('.alert-error'), 'Album not found with id 1', 'not-found message is displayed'
+    @test.assert /Album not found with id 1/.test(@fetchText('.alert-error')), 'not-found message is displayed'
     @click 'tbody tr:nth-child(1)'
 
 casper.then ->
@@ -20,7 +20,7 @@ casper.then ->
 
 casper.thenOpen 'http://localhost:8080/album#/edit/1', ->
     @test.assertUrlMatch /#\/list$/, 'invalid id in edit URL redirects to the list page'
-    @test.assertEquals @fetchText('.alert-error'), 'Album not found with id 1', 'not-found message is displayed'
+    @test.assert /Album not found with id 1/.test(@fetchText('.alert-error')), 'not-found message is displayed'
 
 casper.run ->
     @test.done()
