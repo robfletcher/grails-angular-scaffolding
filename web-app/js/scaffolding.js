@@ -44,6 +44,7 @@ function ListCtrl($scope, $location, Grails, Flash) {
 }
 
 function ShowCtrl($scope, $routeParams, $location, Grails, Flash) {
+    $scope.message = Flash.get('message');
 	Grails.get({id: $routeParams.id}, function(item) {
 		$scope.item = item;
 	}, function(response) {
@@ -58,10 +59,11 @@ function ShowCtrl($scope, $routeParams, $location, Grails, Flash) {
 	};
 }
 
-function CreateCtrl($scope, $location, Grails) {
+function CreateCtrl($scope, $location, Grails, Flash) {
 	$scope.item = new Grails;
 	$scope.save = function(item) {
 		item.$save(function(response) {
+            Flash.message = { level: 'success', text: response.message };
 			$location.path('/show/' + response.id);
 		}, function(response) {
 			switch (response.status) {
