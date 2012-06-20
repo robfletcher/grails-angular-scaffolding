@@ -13,6 +13,7 @@ class ${className}Controller {
     def list() {
         cache false
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        response.setIntHeader('X-Pagination-Total', ${className}.count())
         render ${className}.list(params) as JSON
     }
 

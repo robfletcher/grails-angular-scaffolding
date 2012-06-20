@@ -38,13 +38,26 @@ angular.module('scaffolding', ['grailsService', 'flashService']).config([
     }
 ]);
 
-function ListCtrl($scope, $location, Grails, Flash) {
-    $scope.list = Grails.list();
-    $scope.message = Flash.get('message');
+function ListCtrl($scope, $routeParams, $location, Grails, Flash) {
+    Grails.list($routeParams, function(list, headers) {
+		$scope.list = list;
+		$scope.total = parseInt(headers('X-Pagination-Total'));
+		$scope.max = parseInt($routeParams.max) || 10;
+		$scope.offset = parseInt($routeParams.offset) || 0;
+		$scope.currentPage = Math.ceil($scope.offset / $scope.max);
+		$scope.message = Flash.get('message');
+	});
 
     $scope.show = function(item) {
         $location.path('/show/' + item.id);
     };
+
+	$scope.pages = function() {
+		var pages = [];
+		for (var i = 0; i < Math.ceil($scope.total / $scope.max); i++)
+			pages.push(i);
+		return pages;
+	};
 }
 
 function ShowCtrl($scope, $routeParams, $location, Grails, Flash) {

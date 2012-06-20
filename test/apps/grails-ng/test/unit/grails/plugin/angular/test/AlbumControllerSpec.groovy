@@ -65,7 +65,15 @@ class AlbumControllerSpec extends Specification {
         2   | 2      | ['Master of My Make Believe']
     }
 
-    void 'get returns single item'() {
+	void 'list returns total as response header'() {
+		when:
+		controller.list()
+
+		then:
+		response.getHeader('X-Pagination-Total').toInteger() == Album.count()
+	}
+
+	void 'get returns single item'() {
         when:
         params.id = Album.findByTitle('Here').id
         controller.get()
