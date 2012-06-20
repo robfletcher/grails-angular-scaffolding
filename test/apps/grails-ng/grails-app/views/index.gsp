@@ -52,6 +52,7 @@
 				<div class="tab-content">
 					<div class="tab-pane active" id="status">
 						<dl class="dl-horizontal">
+                            <dt>Last updated</dt><dd><g:formatDate date="${Date.parse(/yyyy-MM-dd'T'HH:mm:ssZ/, grailsApplication.metadata.'cf.last.deployed')}"/></dd>
 							<dt>App version</dt><dd><g:meta name="app.version"/></dd>
 							<dt>Grails version</dt><dd><g:meta name="app.grails.version"/></dd>
 							<dt>Groovy version</dt><dd>${org.codehaus.groovy.runtime.InvokerHelper.getVersion()}</dd>
