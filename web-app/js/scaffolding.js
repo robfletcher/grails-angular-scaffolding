@@ -20,6 +20,11 @@ angular.module('scaffolding', ['grailsService']).config([
 			when('/show/:id', {templateUrl: '/show.html', controller: ShowCtrl}).
 			otherwise({redirectTo: '/list'});
 	}
+]).run([
+	'$rootScope',
+	function($rootScope) {
+		$rootScope.message = {};
+	}
 ]);
 
 function ListCtrl($scope, $location, Grails) {
@@ -30,10 +35,11 @@ function ListCtrl($scope, $location, Grails) {
 	};
 }
 
-function ShowCtrl($scope, $routeParams, $location, Grails) {
+function ShowCtrl($scope, $rootScope, $routeParams, $location, Grails) {
 	Grails.get({id: $routeParams.id}, function(item) {
 		$scope.item = item;
-	}, function() {
+	}, function(response) {
+		$rootScope.message = { level: 'error', text: response.data.message };
 		$location.path('/list');
 	});
 
