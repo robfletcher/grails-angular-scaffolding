@@ -7,4 +7,4 @@
         t.parentNode.insertBefore(s, t);
     })();
 /* ]]> */</r:script>
-<a class="FlattrButton" style="display:none;" rev="flattr;button:compact;" href="http://grails-ng.cloudfoundry.com/"></a>
+<a class="FlattrButton" style="display:none;" rel="flattr;button:compact;" href="${createLink(uri: '/', absolute: true)}"></a>
