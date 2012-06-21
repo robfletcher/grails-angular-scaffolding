@@ -9,7 +9,10 @@
 					</g:each>
 				</ul>
 			</div>
-			<g:render template="/templates/tweet-button"/>
-		</div>
+            <ul class="nav pull-right social-buttons">
+                <li><g:render template="/templates/tweet-button"/></li>
+                <li><g:render template="/templates/flattr-button"/></li>
+            </ul>
+        </div>
 	</div>
 </div>

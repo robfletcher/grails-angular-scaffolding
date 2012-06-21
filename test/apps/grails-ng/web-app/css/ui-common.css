@@ -1,6 +1,6 @@
-.navbar .twitter-share-button {
-	float: right;
-	margin: 8px 0 12px 20px;
+.social-buttons li {
+    height: 20px;
+    padding: 10px 0;
 }
 
 .hero-unit {
