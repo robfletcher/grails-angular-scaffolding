@@ -9,7 +9,7 @@ casper.fill = (selector, values, submit = false) ->
 # fetches the text in a table column as an array
 casper.getColumn = (index) ->
     @evaluate (index) ->
-        cells = $('tbody td:nth-child(2)')
+        cells = $("tbody td:nth-child(#{index})")
         Array:: map.call cells, (e) -> $(e).text()
     ,
         index: index
