@@ -53,13 +53,25 @@ casper.then ->
         @test.assert album.title not in titles, "'#{album.title}' does not appear in the list" for album in fixture[..3]
         @test.assert album.title in titles, "'#{album.title}' appears in the list" for album in fixture[4..]
 
-        @test.info 'clicking the 1st page button'
-        @click '.pagination li:nth-child(2) a'
+        @test.info 'next page button should not be clickable on the last page'
+        @click '.pagination li:last-child a'
     , ->
         @test.fail 'data should have loaded into the list page'
 
 casper.then ->
+    @test.assertUrlMatch /\?max=2&offset=4$/, 'still on page 3 of the list'
+
+    @test.info 'clicking the 1st page button'
+    @click '.pagination li:nth-child(2) a'
+
+casper.then ->
     @test.assertUrlMatch /\?max=2&offset=0$/, 'back on page 1'
+
+    @test.info 'previous page button should not be clickable on the first page'
+    @click '.pagination li:first-child a'
+
+casper.then ->
+    @test.assertUrlMatch /\?max=2&offset=0$/, 'still on page 1'
 
 casper.run ->
     @test.done()

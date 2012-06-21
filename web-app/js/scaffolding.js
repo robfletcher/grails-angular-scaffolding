@@ -45,6 +45,7 @@ function ListCtrl($scope, $routeParams, $location, Grails, Flash) {
 		$scope.max = parseInt($routeParams.max) || 10;
 		$scope.offset = parseInt($routeParams.offset) || 0;
 		$scope.currentPage = Math.ceil($scope.offset / $scope.max);
+        $scope.lastPage = $scope.pages().slice(-1)[0];
 		$scope.message = Flash.get('message');
 	});
 
