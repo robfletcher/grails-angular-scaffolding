@@ -50,7 +50,6 @@ angular.module('scaffolding', ['grailsService', 'flashService']).config([
 
             $scope.pages = function() {
                 var pages = [];
-                console.log($scope.total, typeof $scope.total);
                 for (var i = 0; i < Math.ceil($scope.total / $scope.max); i++)
                     pages.push(i);
                 return pages;
