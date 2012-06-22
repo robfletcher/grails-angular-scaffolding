@@ -22,7 +22,9 @@
 		<g:layoutHead/>
         <r:layoutResources />
 	</head>
-	<body data-ng-app="${pageProperty(name: 'body.data-ng-app')}" data-base-url="${pageProperty(name: 'body.data-base-url')}">
+	<body data-ng-app="${pageProperty(name: 'body.data-ng-app')}"
+          data-base-url="${pageProperty(name: 'body.data-base-url', default: createLink(action: 'index').replaceAll(/index$/, ''))}"
+          data-template-url="${pageProperty(name: 'body.data-template-url', default: createLink(uri: "/ng-templates/$controllerName"))}">
 		<g:render template="/templates/navbar"/>
 		<div class="container">
 			<g:layoutBody/>
@@ -31,7 +33,7 @@
                 <p>&copy; <a href="http://freeside.co/">Freeside Software</a> 2012</p>
                 <p>Last updated: <g:formatDate date="${Date.parse(/yyyy-MM-dd'T'HH:mm:ssZ/, grailsApplication.metadata.'cf.last.deployed')}"/></p>
             </footer>
-    </div>
+        </div>
 		<r:layoutResources />
 	</body>
 </html>

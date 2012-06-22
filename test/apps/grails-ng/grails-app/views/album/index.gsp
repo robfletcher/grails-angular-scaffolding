@@ -6,7 +6,7 @@
         <title><g:message code="default.list.label" args="[entityName]" /></title>
         <r:require module="angular-scaffolding"/>
     </head>
-    <body data-ng-app="scaffolding" data-base-url="${createLink(action: 'index')}">
+    <body data-ng-app="scaffolding">
 		<div class="subnav">
 			<ul class="nav nav-pills">
 				<li><a class="list" href="#/list"><i class="icon-list"></i> <g:message code="default.list.label" args="[entityName]" /></a></li>

@@ -1,5 +1,5 @@
 angular.module('grailsService', ['ngResource']).factory('Grails', function($resource) {
-    var baseUrl = $('body').data('base-url').replace(/index$/, '');
+    var baseUrl = $('body').data('base-url');
 
     return $resource(baseUrl + ':action/:id', {id: '@id'}, {
         list: {method: 'GET', params: {action: 'list'}, isArray: true},
@@ -29,11 +29,12 @@ angular.module('flashService', []).factory('Flash', function() {
 angular.module('scaffolding', ['grailsService', 'flashService']).config([
     '$routeProvider',
     function($routeProvider) {
+        var baseUrl = $('body').data('template-url');
         $routeProvider.
-            when('/create', {templateUrl: '/create.html', controller: CreateCtrl}).
-            when('/edit/:id', {templateUrl: '/edit.html', controller: EditCtrl}).
-            when('/list', {templateUrl: '/list.html', controller: ListCtrl}).
-            when('/show/:id', {templateUrl: '/show.html', controller: ShowCtrl}).
+            when('/create', {templateUrl: baseUrl + '/create.html', controller: CreateCtrl}).
+            when('/edit/:id', {templateUrl: baseUrl + '/edit.html', controller: EditCtrl}).
+            when('/list', {templateUrl: baseUrl + '/list.html', controller: ListCtrl}).
+            when('/show/:id', {templateUrl: baseUrl + '/show.html', controller: ShowCtrl}).
             otherwise({redirectTo: '/list'});
     }
 ]).directive('pagination', function() {
@@ -59,7 +60,7 @@ angular.module('scaffolding', ['grailsService', 'flashService']).config([
                 return $scope.pages().slice(-1)[0];
             };
         },
-        templateUrl: '/pagination.html',
+        templateUrl: '/ng-templates/pagination.html',
         replace: false
     }
 });
