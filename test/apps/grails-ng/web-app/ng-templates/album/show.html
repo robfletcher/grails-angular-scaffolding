@@ -1,12 +1,16 @@
+
 <div class="page-header">
 	<h1>Show Album</h1>
 </div>
 <div class="alert alert-{{message.level}}" data-ng-show="message"><a class="close" data-dismiss="alert" href="#">&times;</a>{{message.text}}</div>
 <dl class="dl-horizontal">
+	
 	<dt>Artist</dt>
 	<dd data-ng-bind="item.artist"></dd>
+	
 	<dt>Title</dt>
 	<dd data-ng-bind="item.title"></dd>
+	
 </dl>
 <div class="form-actions">
 	<a class="btn" data-ng-href="#/edit/{{item.id}}"><i class="icon-edit"></i> Edit</a>

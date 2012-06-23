@@ -1,7 +1,9 @@
+
 <div class="page-header">
 	<h1>Create Album</h1>
 </div>
 <form name="form" data-ng-submit="save(item)" class="form-horizontal">
+
 	<div class="control-group">
 		<label class="control-label" for="artist">Artist</label>
 		<div class="controls">
@@ -9,6 +11,7 @@
 			<span class="help-inline">{{errors.artist}}</span>
 		</div>
 	</div>
+	
 	<div class="control-group">
 		<label class="control-label" for="title">Title</label>
 		<div class="controls">
@@ -16,6 +19,7 @@
 			<span class="help-inline">{{errors.title}}</span>
 		</div>
 	</div>
+	
 	<div class="form-actions">
 		<button type="submit" class="btn btn-primary" data-ng-disabled="form.$invalid"><i class="icon-ok"></i> Create</button>
 	</div>

@@ -15,7 +15,9 @@
 		<g:layoutHead/>
         <r:layoutResources />
 	</head>
-	<body data-ng-app="${pageProperty(name: 'body.data-ng-app')}" data-base-url="${pageProperty(name: 'body.data-base-url')}">
+	<body data-ng-app="${pageProperty(name: 'body.data-ng-app')}"
+		  data-base-url="${pageProperty(name: 'body.data-base-url', default: createLink(action: 'index').replaceAll(/index$/, ''))}"
+		  data-template-url="${pageProperty(name: 'body.data-template-url', default: createLink(uri: "/ng-templates/$controllerName"))}">
 		<div id="grailsLogo" role="banner"><a href="http://grails.org"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails"/></a></div>
 		<g:layoutBody/>
 		<div class="footer" role="contentinfo"></div>

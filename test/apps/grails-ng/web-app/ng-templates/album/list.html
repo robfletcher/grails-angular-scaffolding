@@ -1,3 +1,4 @@
+
 <div class="page-header">
 	<h1>Album List</h1>
 </div>
@@ -5,14 +6,20 @@
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>Artist</th>
-            <th>Title</th>
+		
+			<th>Artist</th>
+		
+			<th>Title</th>
+		
         </tr>
     </thead>
     <tbody>
         <tr data-ng-repeat="item in list" data-ng-click="show(item)">
-            <td>{{item.artist}}</td>
-            <td>{{item.title}}</td>
+		
+			<td>{{item.artist}}</td>
+		
+			<td>{{item.title}}</td>
+		
         </tr>
     </tbody>
 </table>

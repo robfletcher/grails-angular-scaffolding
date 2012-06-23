@@ -3,7 +3,7 @@
 <!doctype html>
 <html>
     <head>
-        <meta name="layout" content="main">
+        <meta name="layout" content="ng-app">
         <g:set var="entityName" value="\${message(code: '${domainClass.propertyName}.label', default: '${className}')}" />
         <title><g:message code="default.list.label" args="[entityName]" /></title>
         <r:require module="angular-scaffolding"/>
