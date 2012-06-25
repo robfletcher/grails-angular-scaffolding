@@ -13,3 +13,18 @@ casper.getColumn = (index) ->
         Array:: map.call cells, (e) -> $(e).text()
     ,
         index: index
+
+# disables in-browser form validation so that tests can verify server-side validation
+casper.disableFormValidation = (selector = 'form') ->
+    @evaluate (selector) ->
+        $(selector).attr('novalidate', '').find('button').prop('disabled', false)
+    ,
+        selector: selector
+
+# asserts a selector is visible
+casper.test.assertVisible = (selector, message = null) ->
+    @assert casper.visible(selector), message
+
+# asserts a selector is not visible
+casper.test.assertNotVisible = (selector, message = null) ->
+    @assertNot casper.visible(selector), message

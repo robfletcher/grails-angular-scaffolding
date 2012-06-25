@@ -19,3 +19,6 @@ target
 /test/apps/grails-ng/grails-app/views/*/list.gsp
 /test/apps/grails-ng/grails-app/views/*/show.gsp
 *Tests.groovy
+
+# OSX stuff
+.DS_Store
