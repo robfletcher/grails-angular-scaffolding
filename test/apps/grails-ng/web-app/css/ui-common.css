@@ -1,8 +1,10 @@
+/* social buttons that appear in navbar */
 .social-buttons li {
     height: 20px;
     padding: 10px 0;
 }
 
+/* index page */
 .hero-unit {
 	background-color: #68B940 ;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#68B940 ), to(#48802c));
@@ -63,4 +65,31 @@ img.avatar {
 	border-radius: 5px;
 	margin-left: 10px;
 	margin-bottom: 10px;
+}
+
+/* show page */
+dl.dl-horizontal dt {
+	width: 150px;
+}
+
+dl.dl-horizontal dd {
+	margin-left: 160px;
+}
+
+.form-actions {
+	padding-left: 160px;
+}
+
+@media (max-width: 767px) {
+	dl.dl-horizontal dt {
+		width: auto;
+	}
+
+	dl.dl-horizontal dd {
+		margin-left: 0;
+	}
+
+	.form-actions {
+		padding-left: 20px;
+	}
 }
