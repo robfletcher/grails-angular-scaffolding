@@ -2,6 +2,7 @@
 <div class="page-header">
 	<h1>Create ${className}</h1>
 </div>
+<div class="alert alert-{{message.level}}" data-ng-show="message"><a class="close" data-dismiss="alert" href="#">&times;</a>{{message.text}}</div>
 <form name="form" data-ng-submit="save(item)" class="form-horizontal">
 <%  excludedProps = Event.allEvents.toList() << 'version' << 'dateCreated' << 'lastUpdated'
 	persistentPropNames = domainClass.persistentProperties*.name
