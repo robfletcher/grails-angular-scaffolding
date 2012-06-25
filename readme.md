@@ -30,6 +30,12 @@ Each _'page'_ in the CRUD interface for a particular domain class is accessed us
 
 The HTML templates need to be generated individually for each domain class as they contain the markup needed to represent the properties of that class in a list or a form. However, the JavaScript used for the CRUD interface is the same for all domain classes.
 
+## Customizing
+
+### Using Grails RESTful URL mappings
+
+By default Grails uses a non-RESTful URL scheme where the controller action representing the verb is part of the URL. In the Grails documentation there is a section on [configuring RESTful URL mappings](http://grails.org/doc/latest/guide/theWebLayer.html#mappingHTTP). If you want to use such a URL scheme with this plugin you will need to override the `web-app/js/grails-default.js` file that configures an Angular _$resource_ service that maps to your Grails controllers.
+
 ## Limitations
 
 This is an experimental work-in-progress. See the [issues list](https://github.com/robfletcher/grails-angular-scaffolding/issues) for outstanding features.
@@ -42,7 +48,7 @@ The demo application is also included under `test/apps/grails-ng` in this projec
 
 ## Tests
 
-There are some simple end-to-end tests that use [Casper JS](http://casperjs.org/). To run the tests:
+There are some end-to-end tests that use [Casper JS](http://casperjs.org/). To run the tests:
 
     cd test/apps/grails-ng
     grails run-app
