@@ -1,21 +1,13 @@
-angular.module('grailsService', ['ngResource']).factory('Grails', function($resource) {
-    var baseUrl = $('body').data('base-url');
-
-    return $resource(baseUrl + ':action/:id', {id: '@id'}, {
-        list: {method: 'GET', params: {action: 'list'}, isArray: true},
-        get: {method: 'GET', params: {action: 'get'}},
-        save: {method: 'POST', params: {action: 'save'}},
-        update: {method: 'POST', params: {action: 'update'}},
-        delete: {method: 'POST', params: {action: 'delete'}}
-    });
-});
-
+/**
+ * A service for storing one-time messages to be displayed after redirecting to
+ * another view.
+ */
 angular.module('flashService', []).factory('Flash', function() {
     var flash = {};
 
-    flash.get = function(key) {
-        var value = this[key];
-        this[key] = undefined;
+    flash.getMessage = function() {
+        var value = this.message;
+        this.message = undefined;
         return value;
     };
 
@@ -26,7 +18,15 @@ angular.module('flashService', []).factory('Flash', function() {
     return flash;
 });
 
-angular.module('scaffolding', ['grailsService', 'flashService']).config([
+/**
+ * The main scaffolding module.
+ */
+var scaffoldingModule = angular.module('scaffolding', ['grailsService', 'flashService']);
+
+/**
+ * Route definitions connecting URL fragments to views and controllers.
+ */
+scaffoldingModule.config([
     '$routeProvider',
     function($routeProvider) {
         var baseUrl = $('body').data('template-url');
@@ -37,7 +37,12 @@ angular.module('scaffolding', ['grailsService', 'flashService']).config([
             when('/show/:id', {templateUrl: baseUrl + '/show.html', controller: ShowCtrl}).
             otherwise({redirectTo: '/list'});
     }
-]).directive('pagination', function() {
+]);
+
+/**
+ * A directive for including a standard pagination block in the page.
+ */
+scaffoldingModule.directive('pagination', function() {
     return {
         restrict: 'A',
         transclude: false,
@@ -69,7 +74,7 @@ function ListCtrl($scope, $routeParams, $location, Grails, Flash) {
     Grails.list($routeParams, function(list, headers) {
 		$scope.list = list;
         $scope.total = parseInt(headers('X-Pagination-Total'));
-        $scope.message = Flash.get('message');
+        $scope.message = Flash.getMessage();
     });
 
     $scope.show = function(item) {
@@ -78,7 +83,7 @@ function ListCtrl($scope, $routeParams, $location, Grails, Flash) {
 }
 
 function ShowCtrl($scope, $routeParams, $location, Grails, Flash) {
-    $scope.message = Flash.get('message');
+    $scope.message = Flash.getMessage();
     Grails.get({id: $routeParams.id}, function(item) {
         $scope.item = item;
     }, function(response) {
