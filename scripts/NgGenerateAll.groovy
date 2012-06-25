@@ -1,10 +1,10 @@
 includeTargets << new File("${angularScaffoldingPluginDir}/scripts/_NgGenerate.groovy")
 
-target(default: 'Generates HTML Angular JS view templates for a specified domain class') {
+target(default: 'Generates a CRUD interface (controller + Angular JS views) for a domain class') {
 	depends checkVersion, parseArguments, packageApp
 
 	promptForName type: 'Domain Class'
-	generateController = false
+	generateController = true
 	generateForName = argsMap.params[0]
 
 	generateForOne()

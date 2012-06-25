@@ -15,7 +15,7 @@ class AlbumController {
     def list() {
         cache false
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
-		response.setIntHeader('X-Pagination-Total', Album.count())
+        response.setIntHeader('X-Pagination-Total', Album.count())
         render Album.list(params) as JSON
     }
 
