@@ -39,11 +39,11 @@
 			required = (cp ? !(cp.propertyType in [boolean, Boolean]) && !cp.nullable && (cp.propertyType != String || !cp.blank) : false)
 		}
 		if (display) { %>
-	<div class="control-group">
+	<div class="control-group" data-ng-class="{error: errors.${prefix}${p.name}}">
 		<label class="control-label" for="${prefix}${p.name}">${p.naturalName}</label>
 		<div class="controls">
 			<input type="text" id="${prefix}${p.name}" name="${prefix}${p.name}" required data-ng-model="item.${prefix}${p.name}">
-			<span class="help-inline">{{errors.${prefix}${p.name}}}</span>
+			<span class="help-inline" data-ng-show="errors.${prefix}${p.name}">{{errors.${prefix}${p.name}}}</span>
 		</div>
 	</div>
 	<%  }   } %>

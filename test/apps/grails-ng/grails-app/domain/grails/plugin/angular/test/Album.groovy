@@ -7,7 +7,7 @@ class Album {
 
     static constraints = {
         artist blank: false
-        title blank: false
+        title blank: false, unique: 'artist'
     }
 
 	static mapping = {

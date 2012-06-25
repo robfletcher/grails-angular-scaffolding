@@ -17,8 +17,11 @@ class TestDataController {
 	def reset() {
 		Album.withSession { session ->
 			for (album in Album.list()) album.delete()
+            session.flush()
+        }
 
-			new Album(artist: 'Edward Sharpe and the Magnetic Zeroes', title: 'Here').save(failOnError: true)
+        Album.withSession { session ->
+            new Album(artist: 'Edward Sharpe and the Magnetic Zeroes', title: 'Here').save(failOnError: true)
 			new Album(artist: 'Metric', title: 'Synthetica').save(failOnError: true)
 			new Album(artist: 'Santigold', title: 'Master of My Make Believe').save(failOnError: true)
 			new Album(artist: 'Cut Copy', title: 'Zonoscope').save(failOnError: true)
