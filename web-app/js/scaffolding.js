@@ -130,7 +130,7 @@ function EditCtrl($scope, $routeParams, $location, Grails, Flash) {
         }, function(response) {
             switch (response.status) {
                 case 409:
-                    // TODO: display optimistic lock error
+					$scope.message = {level: 'error', text: response.data.message};
                     break;
                 case 422:
                     $scope.errors = response.data.errors;

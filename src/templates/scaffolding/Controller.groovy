@@ -52,10 +52,13 @@ class ${className}Controller {
 
         if (request.JSON.version != null) {
             if (${propertyName}.version > request.JSON.version) {<% def lowerCaseName = grails.util.GrailsNameUtils.getPropertyName(className) %>
-                render status: SC_CONFLICT, text: message(code: 'default.optimistic.locking.failure',
-                          args: [message(code: '${domainClass.propertyName}.label', default: '${className}')],
-                          default: 'Another user has updated this ${className} while you were editing')
-                return
+				response.status = SC_CONFLICT
+				responseJson.message = message(code: 'default.optimistic.locking.failure',
+						args: [message(code: '${domainClass.propertyName}.label', default: '${className}')],
+						default: 'Another user has updated this ${className} while you were editing')
+				cache false
+				render responseJson as JSON
+				return
             }
         }
 

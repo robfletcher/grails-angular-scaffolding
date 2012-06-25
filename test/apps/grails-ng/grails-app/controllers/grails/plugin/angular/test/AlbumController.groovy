@@ -57,9 +57,12 @@ class AlbumController {
 
         if (request.JSON.version != null) {
             if (albumInstance.version > request.JSON.version) {
-                render status: SC_CONFLICT, text: message(code: 'default.optimistic.locking.failure',
+				response.status = SC_CONFLICT
+				responseJson.message = message(code: 'default.optimistic.locking.failure',
                           args: [message(code: 'album.label', default: 'Album')],
                           default: 'Another user has updated this Album while you were editing')
+				cache false
+				render responseJson as JSON
                 return
             }
         }

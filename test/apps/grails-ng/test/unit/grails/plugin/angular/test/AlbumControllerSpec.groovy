@@ -161,6 +161,9 @@ class AlbumControllerSpec extends Specification {
 
         and:
         response.status == SC_CONFLICT
+
+		and:
+		response.contentAsJSON.message == 'Another user has updated this Album while you were editing'
     }
 
     void 'update returns 422 if it fails'() {
