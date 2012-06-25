@@ -4,7 +4,7 @@ casper.start 'http://localhost:8080/album#/create', ->
     @click '.btn-primary'
 
 casper.then ->
-    @waitForSelector '#artist + .help-inline', ->
+    @waitForSelector 'form.ng-pristine', ->
         for field in ['artist', 'title']
             @test.assertExists ".error ##{field}", "#{field} has error class"
             @test.assertEquals @fetchText("##{field} + .help-inline"), "Property [#{field}] of class [class grails.plugin.angular.test.Album] cannot be null", "error message is displayed for #{field}"
@@ -15,10 +15,10 @@ casper.then ->
             artist: 'Yeasayer'
         @click '.btn-primary'
     , ->
-        fail 'submit did not complete'
+        @test.fail 'submit did not complete'
 
 casper.then ->
-    @waitForSelector '#artist + .help-inline', ->
+    @waitForSelector '#artist:not(.ng-invalid)', ->
         @test.assertNotExists ".error #artist", "artist does not have error class"
         @test.assertEquals @fetchText("#artist + .help-inline"), '', "error message is not displayed for artist"
         @test.assertNotVisible "#artist + .help-inline", "error message for artist is not visible"
@@ -26,6 +26,8 @@ casper.then ->
         @test.assertExists ".error #title", "title has error class"
         @test.assertEquals @fetchText("#title + .help-inline"), "Property [title] of class [class grails.plugin.angular.test.Album] cannot be null", "error message is displayed for title"
         @test.assertVisible "#title + .help-inline", "error message for title is visible"
+    , ->
+        @test.fail 'submit did not complete'
 
 casper.run ->
     @test.done()
