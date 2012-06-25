@@ -44,10 +44,10 @@ scaffoldingModule.config([
  */
 scaffoldingModule.directive('pagination', function() {
     return {
-        restrict: 'A',
-        transclude: false,
+        restrict: 'A', // can only be used as an attribute
+        transclude: false, // the element should not contain any content so there's no need to transclude
         scope: {
-            total: '=total'
+            total: '=total' // inherit the total property from the controller scope
         },
         controller: function($scope, $routeParams) {
             $scope.max = parseInt($routeParams.max) || 10;
@@ -84,6 +84,7 @@ function ListCtrl($scope, $routeParams, $location, Grails, Flash) {
 
 function ShowCtrl($scope, $routeParams, $location, Grails, Flash) {
     $scope.message = Flash.getMessage();
+
     Grails.get({id: $routeParams.id}, function(item) {
         $scope.item = item;
     }, function(response) {
@@ -95,12 +96,20 @@ function ShowCtrl($scope, $routeParams, $location, Grails, Flash) {
         item.$delete(function(response) {
             Flash.success(response.message);
             $location.path('/list');
-        });
+        }, function(response) {
+			switch (response.status) {
+				case 404:
+					Flash.error(response.data.message);
+					$location.path('/list');
+					break;
+			}
+		});
     };
 }
 
 function CreateCtrl($scope, $location, Grails, Flash) {
     $scope.item = new Grails;
+
     $scope.save = function(item) {
         item.$save(function(response) {
             Flash.success(response.message);
@@ -129,7 +138,11 @@ function EditCtrl($scope, $routeParams, $location, Grails, Flash) {
             $location.path('/show/' + response.id);
         }, function(response) {
             switch (response.status) {
-                case 409:
+				case 404:
+					Flash.error(response.data.message);
+					$location.path('/list');
+					break;
+				case 409:
 					$scope.message = {level: 'error', text: response.data.message};
                     break;
                 case 422:
@@ -143,6 +156,13 @@ function EditCtrl($scope, $routeParams, $location, Grails, Flash) {
         item.$delete(function(response) {
             Flash.success(response.message);
             $location.path('/list');
-        });
+        }, function(response) {
+			switch (response.status) {
+				case 404:
+					Flash.error(response.data.message);
+					$location.path('/list');
+					break;
+			}
+		});
     };
 }
