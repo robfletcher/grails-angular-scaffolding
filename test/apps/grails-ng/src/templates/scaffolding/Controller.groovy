@@ -11,9 +11,10 @@ class ${className}Controller {
     def index() { }
 
     def list() {
+        cache false
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
-		response.setIntHeader('X-Pagination-Total', ${className}.count())
-		render ${className}.list(params) as JSON
+        response.setIntHeader('X-Pagination-Total', ${className}.count())
+        render ${className}.list(params) as JSON
     }
 
     def save() {
@@ -29,12 +30,14 @@ class ${className}Controller {
                 [(it.field): message(error: it)]
             }
         }
+		cache false
         render responseJson as JSON
     }
 
     def get() {
         def ${propertyName} = ${className}.get(params.id)
         if (${propertyName}) {
+			cache false
 			render ${propertyName} as JSON
         } else {
 			notFound params.id
@@ -75,7 +78,8 @@ class ${className}Controller {
             }
         }
 
-        render responseJson as JSON
+		cache false
+		render responseJson as JSON
     }
 
     def delete() {
@@ -93,7 +97,8 @@ class ${className}Controller {
             response.status = SC_CONFLICT
             responseJson.message = message(code: 'default.not.deleted.message', args: [message(code: '${domainClass.propertyName}.label', default: '${className}'), params.id])
         }
-        render responseJson as JSON
+		cache false
+		render responseJson as JSON
     }
 
     private void notFound(id) {
