@@ -3,12 +3,7 @@ class AngularScaffoldingGrailsPlugin {
     def version = '1.0-SNAPSHOT'
     def grailsVersion = '2.0 > *'
     def dependsOn = [:]
-    def pluginExcludes = [
-        'grails-app/conf/BootStrap.groovy',
-        'grails-app/views/**/*',
-        'web-app/css/**/*',
-        'web-app/images/**/*'
-    ]
+    def pluginExcludes = []
 
     def title = 'Angular Scaffolding Plugin'
     def author = 'Rob Fletcher'
