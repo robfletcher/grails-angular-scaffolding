@@ -46,7 +46,7 @@
 	<div class="control-group" data-ng-class="{error: errors.review.rating}">
 		<label class="control-label" for="review.rating">Rating</label>
 		<div class="controls">
-			<input type="range" id="rating" name="rating" data-ng-model="item.rating" min="1" max="5" required>
+			<input type="range" id="rating" name="rating" data-ng-model="item.rating" min="1" max="5"<output for="rating">{{rating}}</output>
 
 			<span class="help-inline" data-ng-show="errors.review.rating">{{errors.review.rating}}</span>
 		</div>

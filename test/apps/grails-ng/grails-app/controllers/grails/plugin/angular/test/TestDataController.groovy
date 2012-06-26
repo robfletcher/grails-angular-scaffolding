@@ -21,11 +21,11 @@ class TestDataController {
         }
 
         Album.withSession { session ->
-            new Album(artist: 'Edward Sharpe and the Magnetic Zeroes', title: 'Here').save(failOnError: true)
-			new Album(artist: 'Metric', title: 'Synthetica').save(failOnError: true)
-			new Album(artist: 'Santigold', title: 'Master of My Make Believe').save(failOnError: true)
-			new Album(artist: 'Cut Copy', title: 'Zonoscope').save(failOnError: true)
-			new Album(artist: 'Handsome Furs', title: 'Sound Kapital').save(failOnError: true)
+            new Album(artist: 'Edward Sharpe and the Magnetic Zeroes', title: 'Here', year: '2012').save(failOnError: true)
+			new Album(artist: 'Metric', title: 'Synthetica', year: '2012').save(failOnError: true)
+			new Album(artist: 'Santigold', title: 'Master of My Make Believe', year: '2012').save(failOnError: true)
+			new Album(artist: 'Cut Copy', title: 'Zonoscope', year: '2011').save(failOnError: true)
+			new Album(artist: 'Handsome Furs', title: 'Sound Kapital', year: '2011').save(failOnError: true)
 			session.flush()
 		}
 

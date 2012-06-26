@@ -6,6 +6,7 @@ casper.thenOpen 'http://localhost:8080/album#/create', ->
     @fill 'form',
         artist: 'Yeasayer'
         title: 'Fragrant World'
+        year: '2012'
     @click 'button.btn-primary'
 
 casper.then ->

@@ -33,17 +33,24 @@
         sb << '<input'
         if (cp.range) {
             sb << ' type="range"'
-        }
-        else if (property.type in [float, double, Float, Double, BigDecimal]) sb << ' type="text"'
-        else sb << ' type="number"'
-        sb << ' id="' << property.name << '"'
-        sb << ' name="' << property.name << '"'
-        sb << ' data-ng-model="item.' << property.name << '"'
-        if (cp.min != null) sb << ' min="' << cp.min << '"'
-        if (cp.max != null) sb << ' max="' << cp.max << '"'
-        if (isRequired()) sb << ' required'
-        sb << '>'
-        sb as String
+			sb << ' id="' << property.name << '"'
+			sb << ' name="' << property.name << '"'
+			sb << ' data-ng-model="item.' << property.name << '"'
+			sb << ' min="' << cp.range.from << '"'
+			sb << ' max="' << cp.range.to << '"'
+			sb << '<output for="' << property.name << '">{{' << property.name << '}}</output>'
+		} else {
+			if (property.type in [float, double, Float, Double, BigDecimal]) sb << ' type="text"'
+			else sb << ' type="number"'
+			sb << ' id="' << property.name << '"'
+			sb << ' name="' << property.name << '"'
+			sb << ' data-ng-model="item.' << property.name << '"'
+			if (cp.min != null) sb << ' min="' << cp.min << '"'
+			if (cp.max != null) sb << ' max="' << cp.max << '"'
+			if (isRequired()) sb << ' required'
+			sb << '>'
+		}
+		sb as String
     }
 
     private String renderStringEditor(domainClass, property) {
