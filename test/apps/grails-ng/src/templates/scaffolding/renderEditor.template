@@ -31,7 +31,9 @@
     private String renderNumberEditor(domainClass, property) {
         def sb = new StringBuilder()
         sb << '<input'
-        if (cp.range) sb << ' type="range"'
+        if (cp.range) {
+            sb << ' type="range"'
+        }
         else if (property.type in [float, double, Float, Double, BigDecimal]) sb << ' type="text"'
         else sb << ' type="number"'
         sb << ' id="' << property.name << '"'
