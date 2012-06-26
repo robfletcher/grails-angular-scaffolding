@@ -19,7 +19,7 @@
 			Collections.sort(embeddedProps, comparator.constructors[0].newInstance([p.component] as Object[]))
 			%><fieldset class="embedded"><legend>${p.naturalName}</legend><%
 			for (ep in p.component.properties) {
-				renderFieldForProperty(ep, p.component, "${p.name}.")
+                if (!(ep.name in excludedProps)) renderFieldForProperty(ep, p.component, "${p.name}.")
 			}
 			%></fieldset><%
 		} else {
@@ -40,7 +40,7 @@
 	<div class="control-group" data-ng-class="{error: errors.${prefix}${p.name}}">
 		<label class="control-label" for="${prefix}${p.name}">${p.naturalName}</label>
 		<div class="controls">
-			<input type="text" id="${prefix}${p.name}" name="${prefix}${p.name}" required data-ng-model="item.${prefix}${p.name}">
+            ${renderEditor(p)}
 			<span class="help-inline" data-ng-show="errors.${prefix}${p.name}">{{errors.${prefix}${p.name}}}</span>
 		</div>
 	</div>

@@ -1,0 +1,72 @@
+<%
+    switch (property.type) {
+        case Boolean:
+        case boolean:
+            out << renderBooleanEditor(domainClass, property)
+            break
+        case Number:
+        case byte:
+        case short:
+        case int:
+        case long:
+        case float:
+        case double:
+            out << renderNumberEditor(domainClass, property)
+            break
+        case String:
+            out << renderStringEditor(domainClass, property)
+            break
+    }
+
+    private String renderBooleanEditor(domainClass, property) {
+        def sb = new StringBuilder()
+        sb << '<input type="checkbox"'
+        sb << ' id="' << property.name << '"'
+        sb << ' name="' << property.name << '"'
+        sb << ' data-ng-model="item.' << property.name << '"'
+        sb << '>'
+        sb as String
+    }
+
+    private String renderNumberEditor(domainClass, property) {
+        def sb = new StringBuilder()
+        sb << '<input'
+        if (cp.range) {
+            sb << ' type="range"'
+        }
+        else if (property.type in [float, double, Float, Double, BigDecimal]) sb << ' type="text"'
+        else sb << ' type="number"'
+        sb << ' id="' << property.name << '"'
+        sb << ' name="' << property.name << '"'
+        sb << ' data-ng-model="item.' << property.name << '"'
+        if (cp.min != null) sb << ' min="' << cp.min << '"'
+        if (cp.max != null) sb << ' max="' << cp.max << '"'
+        if (isRequired()) sb << ' required'
+        sb << '>'
+        sb as String
+    }
+
+    private String renderStringEditor(domainClass, property) {
+        def sb = new StringBuilder()
+        sb << '<input type="text"'
+        sb << ' id="' << property.name << '"'
+        sb << ' name="' << property.name << '"'
+        sb << ' data-ng-model="item.' << property.name << '"'
+        if (cp.matches) sb << ' pattern="' << cp.matches << '"'
+        if (isRequired()) sb << ' required'
+        sb << '>'
+        sb as String
+    }
+
+    private boolean isRequired() {
+        !isOptional()
+    }
+
+    private boolean isOptional() {
+        if (!cp) {
+            return false
+        } else {
+            cp.nullable || (cp.propertyType == String && cp.blank) || cp.propertyType in [boolean, Boolean]
+        }
+    }
+%>

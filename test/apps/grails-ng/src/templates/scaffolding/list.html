@@ -8,20 +8,17 @@
         <tr>
 		<%  excludedProps = Event.allEvents.toList() << 'id' << 'version'
 			allowedNames = domainClass.persistentProperties*.name << 'dateCreated' << 'lastUpdated'
-			props = domainClass.properties.findAll { allowedNames.contains(it.name) && !excludedProps.contains(it.name) && it.type != null && !Collection.isAssignableFrom(it.type) }
+			props = domainClass.properties.findAll { allowedNames.contains(it.name) && !excludedProps.contains(it.name) && it.type != null && !Collection.isAssignableFrom(it.type) && !it.isAssociation() && !it.embedded }
 			Collections.sort(props, comparator.constructors[0].newInstance([domainClass] as Object[]))
-			props.eachWithIndex { p, i ->
-				if (i < 6) {
-					if (p.isAssociation()) { %>
+            if (props.size() > 6) props = props[0..5]
+			for (p in props) { %>
 			<th>${p.naturalName}</th>
-		<%  	    } else { %>
-			<th>${p.naturalName}</th>
-		<%  } } } %>
+		<%  } %>
         </tr>
     </thead>
     <tbody>
         <tr data-ng-repeat="item in list" data-ng-click="show(item)">
-		<%  props.eachWithIndex { p, i -> %>
+		<%  for (p in props) { %>
 			<td>{{item.${p.name}}}</td>
 		<%  } %>
         </tr>

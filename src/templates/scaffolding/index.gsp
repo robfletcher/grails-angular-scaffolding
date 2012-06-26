@@ -8,7 +8,7 @@
         <title><g:message code="default.list.label" args="[entityName]" /></title>
         <r:require module="angular-scaffolding"/>
     </head>
-    <body data-ng-app="scaffolding" data-base-url="\${createLink(action: 'index')}">
+    <body data-ng-app="scaffolding">
         <a href="#list-${domainClass.propertyName}" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
         <div class="nav" role="navigation">
             <ul>

@@ -1,4 +1,3 @@
-
 <div class="page-header">
 	<h1>Create Album</h1>
 </div>
@@ -8,7 +7,8 @@
 	<div class="control-group" data-ng-class="{error: errors.artist}">
 		<label class="control-label" for="artist">Artist</label>
 		<div class="controls">
-			<input type="text" id="artist" name="artist" required data-ng-model="item.artist">
+            <input type="text" id="artist" name="artist" data-ng-model="item.artist" required>
+
 			<span class="help-inline" data-ng-show="errors.artist">{{errors.artist}}</span>
 		</div>
 	</div>
@@ -16,11 +16,48 @@
 	<div class="control-group" data-ng-class="{error: errors.title}">
 		<label class="control-label" for="title">Title</label>
 		<div class="controls">
-			<input type="text" id="title" name="title" required data-ng-model="item.title">
+            <input type="text" id="title" name="title" data-ng-model="item.title" required>
+
 			<span class="help-inline" data-ng-show="errors.title">{{errors.title}}</span>
 		</div>
 	</div>
 	
+	<div class="control-group" data-ng-class="{error: errors.year}">
+		<label class="control-label" for="year">Year</label>
+		<div class="controls">
+            <input type="text" id="year" name="year" data-ng-model="item.year" pattern="\d{4}">
+
+			<span class="help-inline" data-ng-show="errors.year">{{errors.year}}</span>
+		</div>
+	</div>
+	
+	<div class="control-group" data-ng-class="{error: errors.compilation}">
+		<label class="control-label" for="compilation">Compilation</label>
+		<div class="controls">
+            <input type="checkbox" id="compilation" name="compilation" data-ng-model="item.compilation">
+
+			<span class="help-inline" data-ng-show="errors.compilation">{{errors.compilation}}</span>
+		</div>
+	</div>
+	<fieldset class="embedded"><legend>Review</legend>
+	<div class="control-group" data-ng-class="{error: errors.review.rating}">
+		<label class="control-label" for="review.rating">Rating</label>
+		<div class="controls">
+            <input type="range" id="rating" name="rating" data-ng-model="item.rating" min="1" max="5" required>
+
+			<span class="help-inline" data-ng-show="errors.review.rating">{{errors.review.rating}}</span>
+		</div>
+	</div>
+	
+	<div class="control-group" data-ng-class="{error: errors.review.text}">
+		<label class="control-label" for="review.text">Text</label>
+		<div class="controls">
+            <input type="text" id="text" name="text" data-ng-model="item.text">
+
+			<span class="help-inline" data-ng-show="errors.review.text">{{errors.review.text}}</span>
+		</div>
+	</div>
+	</fieldset>
 	<div class="form-actions">
 		<button type="submit" class="btn btn-primary" data-ng-disabled="form.$invalid"><i class="icon-ok"></i> Create</button>
 	</div>
