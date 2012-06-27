@@ -47,6 +47,7 @@ class AlbumController {
     }
 
     def update() {
+		println request.JSON
         def albumInstance = Album.get(params.id)
         if (!albumInstance) {
             notFound params.id

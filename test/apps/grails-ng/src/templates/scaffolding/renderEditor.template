@@ -1,8 +1,10 @@
 <%
+	def name = prefix ? "${prefix}${property.name}" : property.name
+
     switch (property.type) {
         case Boolean:
         case boolean:
-            out << renderBooleanEditor(domainClass, property)
+            out << renderBooleanEditor(domainClass, property, name)
             break
         case Number:
         case byte:
@@ -11,40 +13,40 @@
         case long:
         case float:
         case double:
-            out << renderNumberEditor(domainClass, property)
+            out << renderNumberEditor(domainClass, property, name)
             break
         case String:
-            out << renderStringEditor(domainClass, property)
+            out << renderStringEditor(domainClass, property, name)
             break
     }
 
-    private String renderBooleanEditor(domainClass, property) {
+    private String renderBooleanEditor(domainClass, property, name) {
         def sb = new StringBuilder()
         sb << '<input type="checkbox"'
-        sb << ' id="' << property.name << '"'
-        sb << ' name="' << property.name << '"'
-        sb << ' data-ng-model="item.' << property.name << '"'
+        sb << ' id="' << name << '"'
+        sb << ' name="' << name << '"'
+        sb << ' data-ng-model="item.' << name << '"'
         sb << '>'
         sb as String
     }
 
-    private String renderNumberEditor(domainClass, property) {
+    private String renderNumberEditor(domainClass, property, name) {
         def sb = new StringBuilder()
         sb << '<input'
         if (cp.range) {
             sb << ' type="range"'
-			sb << ' id="' << property.name << '"'
-			sb << ' name="' << property.name << '"'
-			sb << ' data-ng-model="item.' << property.name << '"'
+			sb << ' id="' << name << '"'
+			sb << ' name="' << name << '"'
+			sb << ' data-ng-model="item.' << name << '"'
 			sb << ' min="' << cp.range.from << '"'
 			sb << ' max="' << cp.range.to << '"'
-			sb << '<output for="' << property.name << '">{{' << property.name << '}}</output>'
+			sb << '<output for="' << name << '">{{' << name << '}}</output>'
 		} else {
 			if (property.type in [float, double, Float, Double, BigDecimal]) sb << ' type="text"'
 			else sb << ' type="number"'
-			sb << ' id="' << property.name << '"'
-			sb << ' name="' << property.name << '"'
-			sb << ' data-ng-model="item.' << property.name << '"'
+			sb << ' id="' << name << '"'
+			sb << ' name="' << name << '"'
+			sb << ' data-ng-model="item.' << name << '"'
 			if (cp.min != null) sb << ' min="' << cp.min << '"'
 			if (cp.max != null) sb << ' max="' << cp.max << '"'
 			if (isRequired()) sb << ' required'
@@ -53,12 +55,12 @@
 		sb as String
     }
 
-    private String renderStringEditor(domainClass, property) {
+    private String renderStringEditor(domainClass, property, name) {
         def sb = new StringBuilder()
         sb << '<input type="text"'
-        sb << ' id="' << property.name << '"'
-        sb << ' name="' << property.name << '"'
-        sb << ' data-ng-model="item.' << property.name << '"'
+        sb << ' id="' << name << '"'
+        sb << ' name="' << name << '"'
+        sb << ' data-ng-model="item.' << name << '"'
         if (cp.matches) sb << ' pattern="' << cp.matches << '"'
         if (isRequired()) sb << ' required'
         sb << '>'

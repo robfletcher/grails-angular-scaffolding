@@ -46,7 +46,7 @@
 	<div class="control-group" data-ng-class="{error: errors.review.rating}">
 		<label class="control-label" for="review.rating">Rating</label>
 		<div class="controls">
-			<input type="range" id="rating" name="rating" data-ng-model="item.rating" min="1" max="5"<output for="rating">{{rating}}</output>
+			<input type="range" id="review.rating" name="review.rating" data-ng-model="item.review.rating" min="1" max="5"<output for="review.rating">{{review.rating}}</output>
 
 			<span class="help-inline" data-ng-show="errors.review.rating">{{errors.review.rating}}</span>
 		</div>
@@ -55,7 +55,7 @@
 	<div class="control-group" data-ng-class="{error: errors.review.text}">
 		<label class="control-label" for="review.text">Text</label>
 		<div class="controls">
-			<input type="text" id="text" name="text" data-ng-model="item.text">
+			<input type="text" id="review.text" name="review.text" data-ng-model="item.review.text">
 
 			<span class="help-inline" data-ng-show="errors.review.text">{{errors.review.text}}</span>
 		</div>

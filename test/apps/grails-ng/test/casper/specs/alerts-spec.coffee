@@ -39,7 +39,6 @@ casper.then ->
         @click 'button.btn-danger'
     , ->
         @test.fail 'should have gone to the show page'
-        @captureSelector 'form.png', 'body'
 
 casper.then ->
     @waitForSelector 'tbody tr', ->

@@ -65,6 +65,30 @@ class AngularTemplateGenerator extends DefaultGrailsTemplateGenerator {
 		super(classLoader)
 	}
 
+	def renderEditor = { property, prefix ->
+		def domainClass = property.domainClass
+		def cp
+		if (pluginManager?.hasGrailsPlugin('hibernate')) {
+			cp = domainClass.constrainedProperties[property.name]
+		}
+
+		if (!renderEditorTemplate) {
+			// create template once for performance
+			def templateText = getTemplateText('renderEditor.template')
+			renderEditorTemplate = engine.createTemplate(templateText)
+		}
+
+		def binding = [
+				pluginManager: pluginManager,
+				property: property,
+				domainClass: domainClass,
+				cp: cp,
+				domainInstance: getPropertyName(domainClass),
+				prefix: prefix
+		]
+		renderEditorTemplate.make(binding).toString()
+	}
+
 	@Override
 	void generateViews(GrailsDomainClass domainClass, String destdir) {
 		Assert.hasText destdir, 'Argument [destdir] not specified'

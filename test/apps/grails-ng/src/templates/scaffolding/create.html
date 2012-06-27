@@ -40,7 +40,7 @@
 	<div class="control-group" data-ng-class="{error: errors.${prefix}${p.name}}">
 		<label class="control-label" for="${prefix}${p.name}">${p.naturalName}</label>
 		<div class="controls">
-            ${renderEditor(p)}
+            ${renderEditor(p, prefix)}
 			<span class="help-inline" data-ng-show="errors.${prefix}${p.name}">{{errors.${prefix}${p.name}}}</span>
 		</div>
 	</div>
