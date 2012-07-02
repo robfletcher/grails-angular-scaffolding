@@ -4,7 +4,7 @@ casper.start 'http://localhost:8080/album#/create', ->
     @click '.btn-primary'
 
 casper.then ->
-    @waitForSelector 'form.ng-pristine', ->
+    @waitForSelector '.error', ->
         for field in ['artist', 'title']
             @test.assertExists ".error ##{field}", "#{field} has error class"
             @test.assertEquals @fetchText("##{field} + .help-inline"), "Property [#{field}] of class [class grails.plugin.angular.test.Album] cannot be null", "error message is displayed for #{field}"
