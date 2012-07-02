@@ -49,14 +49,15 @@ scaffoldingModule.config([
  * A directive for including an alert message in the page.
  */
 scaffoldingModule.directive('alert', function() {
-    return {
+	var baseUrl = $('body').data('common-template-url');
+	return {
         restrict: 'E', // can only be used as an element
         transclude: false, // the element should not contain any content so there's no need to transclude
         scope: {
 			level: '@level',
 			text: '@text'
         },
-        templateUrl: '/ng-templates/alert.html',
+        templateUrl: baseUrl + '/alert.html',
         replace: true
     }
 });
@@ -65,7 +66,8 @@ scaffoldingModule.directive('alert', function() {
  * A directive for including a standard pagination block in the page.
  */
 scaffoldingModule.directive('pagination', function() {
-    return {
+	var baseUrl = $('body').data('common-template-url');
+	return {
         restrict: 'A', // can only be used as an attribute
         transclude: false, // the element should not contain any content so there's no need to transclude
         scope: {
@@ -87,7 +89,7 @@ scaffoldingModule.directive('pagination', function() {
                 return $scope.pages().slice(-1)[0];
             };
         },
-        templateUrl: '/ng-templates/pagination.html',
+        templateUrl: baseUrl + '/pagination.html',
         replace: false
     }
 });
