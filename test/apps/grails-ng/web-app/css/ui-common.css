@@ -5,30 +5,31 @@
 }
 
 /* index page */
-.hero-unit {
+.masthead {
 	background-color: #68B940 ;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#68B940 ), to(#48802c));
 	background-image: -webkit-linear-gradient(top, #68B940 , #48802c);
 	background-image:    -moz-linear-gradient(top, #68B940 , #48802c);
 	background-image:      -o-linear-gradient(top, #68B940 , #48802c);
 	background-image:         linear-gradient(to bottom, #68B940 , #48802c);
-
+    padding-top: 60px;
+    padding-bottom: 30px;
 	text-shadow: 0 1px 1px #9b9;
 }
-.hero-unit h1 {
+.masthead h1 {
 	font-family: cursive;
 	font-size: 43px !important;
 	font-weight: normal;
 }
-.hero-unit h1 img {
+.masthead h1 img {
 	margin-bottom: 10px;
 	max-height: 43px;
 	vertical-align: middle;
 }
-.hero-unit .actions {
+.masthead .actions {
 	margin-top: 30px;
 }
-.hero-unit .actions .btn {
+.masthead .actions .btn {
 	font-size: 18px;
 	margin-bottom: 10px;
 	margin-right: 10px;
@@ -37,7 +38,7 @@
 	text-align: left;
 	white-space: nowrap;
 }
-.hero-unit .actions .btn {
+.masthead .actions .btn {
 	background-color: hsl(0, 0%, 79%);
 	background-repeat: repeat-x;
 	background-image: -khtml-gradient(linear, left top, left bottom, from(hsl(0, 0%, 121%)), to(hsl(0, 0%, 79%)));
@@ -52,7 +53,7 @@
 	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.69);
 	-webkit-font-smoothing: antialiased;
 }
-.hero-unit .actions [class^="icon-"] {
+.masthead .actions [class^="icon-"] {
 	font-size: 46px;
 	left: 22px;
 	position: absolute;
