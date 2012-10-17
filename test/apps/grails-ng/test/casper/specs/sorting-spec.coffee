@@ -22,7 +22,7 @@ casper.then ->
 #    assert that column header is active
 
     titles = @getColumn(2)
-    @test.assert title == titles[i], "'#{title}' appears at position #{i+1} in the list" for title, i in ['Here', 'Master of My Make Believe', 'Sound Kapital', 'Synthetica', 'Zonoscope']
+    @test.assertEqual titles[i], title, "'#{title}' appears at position #{i+1} in the list" for title, i in ['Here', 'Master of My Make Believe', 'Sound Kapital', 'Synthetica', 'Zonoscope']
 
     @test.info 'clicking on the artist column sorts the list'
     @click 'thead th:nth-child(1) a'
@@ -32,8 +32,19 @@ casper.then ->
   @waitForSelector 'tbody tr', ->
 #    assert that column header is active
 
-    titles = @getColumn(2)
-    @test.assert title == titles[i], "'#{title}' appears at position #{i+1} in the list" for title, i in ['Zonoscope', 'Here', 'Sound Kapital', 'Synthetica', 'Master of My Make Believe']
+    titles = @getColumn(1)
+    @test.assertEqual titles[i], title, "'#{title}' appears at position #{i+1} in the list" for title, i in ['Cut Copy', 'Edward Sharpe and the Magnetic Zeroes', 'Handsome Furs', 'Metric', 'Santigold']
+
+    @test.info 'clicking on the artist column again reverses the order'
+    @click 'thead th:nth-child(1) a'
+
+casper.then ->
+  @test.assertUrlMatch /\?sort=artist&order=desc$/, 'list is now reverse sorted by artist'
+  @waitForSelector 'tbody tr', ->
+    #    assert that column header is active
+
+    titles = @getColumn(1)
+    @test.assertEqual titles[i], title, "'#{title}' appears at position #{i+1} in the list" for title, i in ['Santigold', 'Metric', 'Handsome Furs', 'Edward Sharpe and the Magnetic Zeroes', 'Cut Copy']
 
 casper.run ->
   @test.done()
