@@ -138,6 +138,16 @@ function ListCtrl($scope, $routeParams, $location, Grails, Flash) {
     $scope.show = function(item) {
         $location.path('/show/' + item.id);
     };
+
+	$scope.sort = function(property) {
+		var order;
+		if ($location.search().sort === property && $location.search().order === 'asc') {
+			order = 'desc';
+		} else {
+			order = 'asc';
+		}
+		$location.search({sort: property, order: order});
+	}
 }
 
 function ShowCtrl($scope, $routeParams, $location, Grails, Flash) {
