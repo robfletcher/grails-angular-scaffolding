@@ -15,7 +15,7 @@
 					if (p.isAssociation()) { %>
 			<th>${p.naturalName}</th>
 		<%  	    } else { %>
-			<th>${p.naturalName}</th>
+			<th><a href="#/list?sort=${p.name}">${p.naturalName}</a></th>
 		<%  } } } %>
         </tr>
     </thead>
