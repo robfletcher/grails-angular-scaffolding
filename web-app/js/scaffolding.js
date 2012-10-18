@@ -119,7 +119,7 @@ scaffoldingModule.directive('sortable', function() {
 		restrict: 'A',
 		transclude: true,
 		scope: {
-			property: '@property'
+			property: '@sortable'
 		},
 		controller: function($scope, $routeParams, $location) {
 			$scope.isSortedBy = function() {
