@@ -73,7 +73,7 @@ scaffoldingModule.directive('pagination', function() {
         scope: {
             total: '=total' // inherit the total property from the controller scope
         },
-        controller: function($scope, $routeParams) {
+        controller: function($scope, $routeParams, $location) {
             $scope.max = parseInt($routeParams.max) || 10;
             $scope.offset = parseInt($routeParams.offset) || 0;
             $scope.currentPage = Math.ceil($scope.offset / $scope.max);
@@ -88,6 +88,22 @@ scaffoldingModule.directive('pagination', function() {
             $scope.lastPage = function() {
                 return $scope.pages().slice(-1)[0];
             };
+
+			$scope.previousPage = function() {
+				var offset = $scope.offset - $scope.max;
+				if (offset < 0) {
+					offset = 0;
+				}
+				$location.search('offset', offset);
+			};
+
+			$scope.nextPage = function() {
+				$location.search('offset', $scope.offset + $scope.max);
+			};
+
+			$scope.goToPage = function(n) {
+				$location.search('offset', n * $scope.max);
+			};
         },
         templateUrl: baseUrl + '/pagination.html',
         replace: false
@@ -146,8 +162,8 @@ function ListCtrl($scope, $routeParams, $location, Grails, Flash) {
 		} else {
 			order = 'asc';
 		}
-		$location.search({sort: property, order: order});
-	}
+		$location.search('sort', property).search('order', order);
+	};
 }
 
 function ShowCtrl($scope, $routeParams, $location, Grails, Flash) {

@@ -19,7 +19,7 @@ grails.project.dependency.resolution = {
     plugins {
         build ":tomcat:$grailsVersion"
         compile ':cloud-foundry:1.2.3', ':cache-headers:1.1.5'
-        runtime ":hibernate:$grailsVersion", ':resources:1.1.6', ':jquery:1.8.0', ':cached-resources:1.0', ':zipped-resources:1.0'
+        runtime ":hibernate:$grailsVersion", ':resources:1.2.RC2', ':jquery:1.8.0', ':cached-resources:1.0', ':zipped-resources:1.0'
         test ':spock:0.6'
     }
 }
