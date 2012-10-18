@@ -15,10 +15,7 @@
 					if (p.isAssociation()) { %>
 			<th>${p.naturalName}</th>
 		<%  	    } else { %>
-            <th data-ng-click="sort('${p.name}')" data-ng-class="{sorted: isSortedBy('${p.name}'), desc: isSortedDescending('${p.name}')}">
-                ${p.naturalName}
-                <i data-ng-class="{'icon-sort-up': !isSortedDescending('${p.name}'), 'icon-sort-down': isSortedDescending('${p.name}')}" data-ng-show="isSortedBy('${p.name}')"></i>
-            </th>
+            <th data-sortable="${p.name}">${p.naturalName}</th>
 		<%  } } } %>
         </tr>
     </thead>
