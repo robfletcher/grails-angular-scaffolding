@@ -110,6 +110,50 @@ scaffoldingModule.directive('pagination', function() {
     }
 });
 
+/**
+ * A directive for making a table header sortable.
+ */
+scaffoldingModule.directive('sortable', function() {
+	var baseUrl = $('body').data('common-template-url');
+	return {
+		restrict: 'A',
+		transclude: true,
+		scope: {
+			property: '@property'
+		},
+		controller: function($scope, $routeParams, $location) {
+			$scope.isSortedBy = function() {
+				return $routeParams.sort === $scope.property;
+			};
+
+			$scope.isSortedByAscending = function() {
+				return $scope.isSortedBy() && $routeParams.order !== 'desc';
+			};
+
+			$scope.isSortedByDescending = function() {
+				return $scope.isSortedBy() && $routeParams.order === 'desc';
+			};
+
+			$scope.sort = function() {
+				var order;
+				if ($scope.isSortedByAscending()) {
+					order = 'desc';
+				} else {
+					order = 'asc';
+				}
+				$location.search('sort', $scope.property).search('order', order);
+			};
+		},
+		link: function(scope, element) {
+			element.bind('click', function() {
+				scope.$apply(scope.sort);
+			});
+		},
+		templateUrl: baseUrl + '/sortable.html',
+		replace: false
+	}
+});
+
 function toArray(element) {
     return Array.prototype.slice.call(element);
 }
@@ -151,26 +195,8 @@ function ListCtrl($scope, $routeParams, $location, Grails, Flash) {
         $scope.message = Flash.getMessage();
     }, errorHandler.curry($scope, $location, Flash));
 
-	$scope.isSortedBy = function(property) {
-		return $routeParams.sort === property;
-	};
-
-	$scope.isSortedDescending = function(property) {
-		return $routeParams.sort === property && $routeParams.order === 'desc';
-	};
-
-    $scope.show = function(item) {
-        $location.path('/show/' + item.id);
-    };
-
-	$scope.sort = function(property) {
-		var order;
-		if ($location.search().sort === property && $location.search().order === 'asc') {
-			order = 'desc';
-		} else {
-			order = 'asc';
-		}
-		$location.search('sort', property).search('order', order);
+	$scope.show = function(item) {
+		$location.path('/show/' + item.id);
 	};
 }
 

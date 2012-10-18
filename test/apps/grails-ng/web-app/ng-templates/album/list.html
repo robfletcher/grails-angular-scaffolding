@@ -7,15 +7,9 @@
     <thead>
         <tr>
 		
-			<th data-ng-click="sort('artist')" data-ng-class="{sorted: isSortedBy('artist'), desc: isSortedDescending('artist')}">
-                Artist
-                <i data-ng-class="{'icon-sort-up': !isSortedDescending('artist'), 'icon-sort-down': isSortedDescending('artist')}" data-ng-show="isSortedBy('artist')"></i>
-            </th>
+			<th data-sortable data-property="artist">Artist</th>
 		
-			<th data-ng-click="sort('title')" data-ng-class="{sorted: isSortedBy('title'), desc: isSortedDescending('title')}">
-                Title
-                <i data-ng-class="{'icon-sort-up': !isSortedDescending('title'), 'icon-sort-down': isSortedDescending('title')}" data-ng-show="isSortedBy('title')"></i>
-            </th>
+			<th data-sortable data-property="title">Title</th>
 		
         </tr>
     </thead>
