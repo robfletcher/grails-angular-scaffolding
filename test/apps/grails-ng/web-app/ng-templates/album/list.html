@@ -7,9 +7,9 @@
     <thead>
         <tr>
 		
-			<th data-ng-click="sort('artist')">Artist</th>
+			<th data-ng-click="sort('artist')" data-ng-class="{sorted: isSortedBy('artist'), desc: isSortedDescending('artist')}">Artist</th>
 		
-			<th data-ng-click="sort('title')">Title</th>
+			<th data-ng-click="sort('title')" data-ng-class="{sorted: isSortedBy('title'), desc: isSortedDescending('title')}">Title</th>
 		
         </tr>
     </thead>

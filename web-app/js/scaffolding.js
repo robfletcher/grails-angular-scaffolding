@@ -151,6 +151,14 @@ function ListCtrl($scope, $routeParams, $location, Grails, Flash) {
         $scope.message = Flash.getMessage();
     }, errorHandler.curry($scope, $location, Flash));
 
+	$scope.isSortedBy = function(property) {
+		return $routeParams.sort === property;
+	};
+
+	$scope.isSortedDescending = function(property) {
+		return $routeParams.sort === property && $routeParams.order === 'desc';
+	};
+
     $scope.show = function(item) {
         $location.path('/show/' + item.id);
     };
