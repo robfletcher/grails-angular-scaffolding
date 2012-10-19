@@ -73,7 +73,7 @@ scaffoldingModule.directive('pagination', function() {
         scope: {
             total: '=total' // inherit the total property from the controller scope
         },
-        controller: function($scope, $routeParams) {
+        controller: function($scope, $routeParams, $location) {
             $scope.max = parseInt($routeParams.max) || 10;
             $scope.offset = parseInt($routeParams.offset) || 0;
             $scope.currentPage = Math.ceil($scope.offset / $scope.max);
@@ -88,10 +88,70 @@ scaffoldingModule.directive('pagination', function() {
             $scope.lastPage = function() {
                 return $scope.pages().slice(-1)[0];
             };
+
+			$scope.previousPage = function() {
+				var offset = $scope.offset - $scope.max;
+				if (offset < 0) {
+					offset = 0;
+				}
+				$location.search('offset', offset);
+			};
+
+			$scope.nextPage = function() {
+				$location.search('offset', $scope.offset + $scope.max);
+			};
+
+			$scope.goToPage = function(n) {
+				$location.search('offset', n * $scope.max);
+			};
         },
         templateUrl: baseUrl + '/pagination.html',
         replace: false
     }
+});
+
+/**
+ * A directive for making a table header sortable.
+ */
+scaffoldingModule.directive('sortable', function() {
+	var baseUrl = $('body').data('common-template-url');
+	return {
+		restrict: 'A',
+		transclude: true,
+		scope: {
+			property: '@sortable'
+		},
+		controller: function($scope, $routeParams, $location) {
+			$scope.isSortedBy = function() {
+				return $routeParams.sort === $scope.property;
+			};
+
+			$scope.isSortedByAscending = function() {
+				return $scope.isSortedBy() && $routeParams.order !== 'desc';
+			};
+
+			$scope.isSortedByDescending = function() {
+				return $scope.isSortedBy() && $routeParams.order === 'desc';
+			};
+
+			$scope.sort = function() {
+				var order;
+				if ($scope.isSortedByAscending()) {
+					order = 'desc';
+				} else {
+					order = 'asc';
+				}
+				$location.search('sort', $scope.property).search('order', order);
+			};
+		},
+		link: function(scope, element) {
+			element.bind('click', function() {
+				scope.$apply(scope.sort);
+			});
+		},
+		templateUrl: baseUrl + '/sortable.html',
+		replace: false
+	}
 });
 
 function toArray(element) {
@@ -135,9 +195,9 @@ function ListCtrl($scope, $routeParams, $location, Grails, Flash) {
         $scope.message = Flash.getMessage();
     }, errorHandler.curry($scope, $location, Flash));
 
-    $scope.show = function(item) {
-        $location.path('/show/' + item.id);
-    };
+	$scope.show = function(item) {
+		$location.path('/show/' + item.id);
+	};
 }
 
 function ShowCtrl($scope, $routeParams, $location, Grails, Flash) {

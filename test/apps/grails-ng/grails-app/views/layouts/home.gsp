@@ -14,7 +14,6 @@
         <r:require module="ui-common"/>
         <style>
         body {
-            padding-top: 60px;
             padding-bottom: 40px;
         }
         </style>
@@ -24,11 +23,10 @@
 
     <body>
         <g:render template="/templates/navbar"/>
-        <div class="container">
-            <g:layoutBody/>
-            <hr>
-            <g:render template="/templates/footer"/>
-        </div>
+        <g:layoutBody/>
+        <hr>
+
+        <g:render template="/templates/footer"/>
         <r:layoutResources/>
     </body>
 </html>

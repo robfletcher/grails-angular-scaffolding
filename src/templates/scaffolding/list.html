@@ -1,6 +1,6 @@
 <% import grails.persistence.Event %>
 <div class="page-header">
-	<h1>Album List</h1>
+	<h1>${className} List</h1>
 </div>
 <alert level="{{message.level}}" text="{{message.text}}"/>
 <table class="table table-bordered table-striped">
@@ -13,7 +13,9 @@
             if (props.size() > 6) props = props[0..5]
 			for (p in props) { %>
 			<th>${p.naturalName}</th>
-		<%  } %>
+		<%  	    } else { %>
+            <th data-sortable="${p.name}">${p.naturalName}</th>
+		<%  } } } %>
         </tr>
     </thead>
     <tbody>
