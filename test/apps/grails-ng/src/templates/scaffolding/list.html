@@ -11,11 +11,12 @@
 			props = domainClass.properties.findAll { allowedNames.contains(it.name) && !excludedProps.contains(it.name) && it.type != null && !Collection.isAssignableFrom(it.type) && !it.isAssociation() && !it.embedded }
 			Collections.sort(props, comparator.constructors[0].newInstance([domainClass] as Object[]))
             if (props.size() > 6) props = props[0..5]
-			for (p in props) { %>
+			for (p in props) {
+                if (p.isAssociation()) { %>
 			<th>${p.naturalName}</th>
-		<%  	    } else { %>
+		<%      } else { %>
 			<th data-sortable="${p.name}">${p.naturalName}</th>
-		<%  } } } %>
+		<%      } } %>
         </tr>
     </thead>
     <tbody>
