@@ -30,7 +30,8 @@ grails.project.dependency.resolution = {
 				':resources:1.2.RC2',
 				':jquery:1.8.3',
 				':cached-resources:1.0',
-				':zipped-resources:1.0'
+				':zipped-resources:1.0',
+				':database-migration:1.3.2'
 
 		test(':spock:0.7') {
 			exclude 'spock-grails-support'
