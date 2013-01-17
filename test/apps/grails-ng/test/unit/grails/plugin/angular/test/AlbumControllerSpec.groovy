@@ -28,9 +28,9 @@ class AlbumControllerSpec extends Specification {
     void setup() {
 		AlbumController.metaClass.cache = {}
 
-        new Album(artist: 'Edward Sharpe and the Magnetic Zeroes', title: 'Here').save(failOnError: true, flush: true)
-        new Album(artist: 'Metric', title: 'Synthetica').save(failOnError: true, flush: true)
-        new Album(artist: 'Santigold', title: 'Master of My Make Believe').save(failOnError: true, flush: true)
+        new Album(artist: 'Edward Sharpe and the Magnetic Zeroes', title: 'Here', year: '2012').save(failOnError: true, flush: true)
+        new Album(artist: 'Metric', title: 'Synthetica', year: '2012').save(failOnError: true, flush: true)
+        new Album(artist: 'Santigold', title: 'Master of My Make Believe', year: '2012').save(failOnError: true, flush: true)
     }
 
     void 'list returns JSON'() {
@@ -98,7 +98,7 @@ class AlbumControllerSpec extends Specification {
 
     void 'save returns 201 status if successful'() {
         when:
-        request.JSON = [artist: 'Yeasayer', title: 'Fragrant World'] as JSON
+        request.JSON = [artist: 'Yeasayer', title: 'Fragrant World', year: '2012'] as JSON
         controller.save()
 
         then:
