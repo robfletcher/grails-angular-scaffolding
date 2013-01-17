@@ -68,7 +68,7 @@
                                 <dt>Last updated</dt><dd><g:formatDate date="${Date.parse(/yyyy-MM-dd'T'HH:mm:ssZ/, grailsApplication.metadata.'cf.last.deployed')}"/></dd>
                                 <dt>App version</dt><dd><g:meta name="app.version"/></dd>
                                 <dt>Grails version</dt><dd><g:meta name="app.grails.version"/></dd>
-                                <dt>Groovy version</dt><dd>${org.codehaus.groovy.runtime.InvokerHelper.getVersion()}</dd>
+                                <dt>Groovy version</dt><dd>${GroovySystem.version}</dd>
                                 <dt>JVM version</dt><dd>${System.getProperty('java.version')}</dd>
                                 <dt>Reloading active</dt><dd>${grails.util.Environment.reloadingAgentEnabled}</dd>
                                 <dt>Controllers</dt><dd>${grailsApplication.controllerClasses.size()}</dd>
