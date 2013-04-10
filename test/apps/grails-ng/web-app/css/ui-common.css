@@ -75,6 +75,11 @@ dl.dl-horizontal dd {
 }
 
 @media (max-width: 767px) {
+    .masthead {
+        padding: 40px 20px;
+        margin: -20px -20px 0;
+    }
+
 	dl.dl-horizontal dt {
 		width: auto;
 	}
