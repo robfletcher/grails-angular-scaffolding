@@ -8,6 +8,8 @@ modules = {
 	'font-awesome' {
 		resource url: 'font-awesome/css/font-awesome.min.css', exclude: 'minify'
 	}
+	prefixfree {
+		resource url: 'prefixfree/prefixfree.min.js', disposition: 'head', exclude: 'minify'
 	}
 	'ui-common' {
 		dependsOn 'bootstrap', 'font-awesome'
