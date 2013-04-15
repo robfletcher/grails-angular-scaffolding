@@ -24,7 +24,8 @@ grails.project.dependency.resolution = {
 		build ":tomcat:$grailsVersion"
 
 		compile ':cloud-foundry:1.2.3',
-				':cache-headers:1.1.5'
+				':cache-headers:1.1.5',
+				':gson:1.1.4'
 
 		runtime ":hibernate:$grailsVersion",
 				':resources:1.2.RC2',

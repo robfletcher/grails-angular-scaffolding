@@ -6,7 +6,7 @@
         <meta name="layout" content="ng-app">
         <g:set var="entityName" value="${message(code: 'album.label', default: 'Album')}" />
         <title><g:message code="default.list.label" args="[entityName]" /></title>
-        <r:require module="angular-scaffolding"/>
+        <r:require module="angular-grails-resource"/>
     </head>
     <body data-ng-app="scaffolding">
         <div class="subnav">

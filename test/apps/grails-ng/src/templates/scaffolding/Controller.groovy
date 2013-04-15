@@ -1,109 +1,150 @@
-<%=packageName ? "package ${packageName}\n\n" : ''%>import org.springframework.dao.DataIntegrityViolationException
-import grails.converters.JSON
+<%=packageName ? "package ${packageName}\n\n" : ''%>import grails.plugin.gson.converters.GSON
+import org.springframework.dao.DataIntegrityViolationException
 import static javax.servlet.http.HttpServletResponse.*
+import static org.codehaus.groovy.grails.web.servlet.HttpHeaders.*
+import static grails.plugin.gson.http.HttpConstants.*
 
 class ${className}Controller {
 
-    static final int SC_UNPROCESSABLE_ENTITY = 422
+	def list(Integer max) {
+		params.max = Math.min(max ?: 10, 100)
+		response.addIntHeader X_PAGINATION_TOTAL, ${className}.count()
+		render ${className}.list(params) as GSON
+	}
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
-
-    def index() { }
-
-    def list() {
-        cache false
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        response.setIntHeader('X-Pagination-Total', ${className}.count())
-        render ${className}.list(params) as JSON
-    }
-
-    def save() {
-        def ${propertyName} = new ${className}(request.JSON)
-        def responseJson = [:]
-        if (${propertyName}.save(flush: true)) {
-            response.status = SC_CREATED
-            responseJson.id = ${propertyName}.id
-            responseJson.message = message(code: 'default.created.message', args: [message(code: '${domainClass.propertyName}.label', default: '${className}'), ${propertyName}.id])
-        } else {
-            response.status = SC_UNPROCESSABLE_ENTITY
-            responseJson.errors = ${propertyName}.errors.fieldErrors.collectEntries {
-                [(it.field): message(error: it)]
-            }
-        }
-		cache false
-        render responseJson as JSON
-    }
-
-    def get() {
-        def ${propertyName} = ${className}.get(params.id)
-        if (${propertyName}) {
-			cache false
-			render ${propertyName} as JSON
-        } else {
-			notFound params.id
+	def save() {
+		if (!requestIsJson()) {
+			respondNotAcceptable()
+			return
 		}
-    }
 
-    def update() {
-        def ${propertyName} = ${className}.get(params.id)
-        if (!${propertyName}) {
-            notFound params.id
-            return
-        }
+		def ${propertyName} = new ${className}(request.GSON)
+		if (${propertyName}.save(flush: true)) {
+			respondCreated ${propertyName}
+		} else {
+			respondUnprocessableEntity ${propertyName}
+		}
+	}
 
-        def responseJson = [:]
+	def show() {
+		def ${propertyName} = ${className}.get(params.id)
+		if (${propertyName}) {
+			respondFound ${propertyName}
+		} else {
+			respondNotFound params.id
+		}
+	}
 
-        if (request.JSON.version != null) {
-            if (${propertyName}.version > request.JSON.version) {<% def lowerCaseName = grails.util.GrailsNameUtils.getPropertyName(className) %>
-				response.status = SC_CONFLICT
-				responseJson.message = message(code: 'default.optimistic.locking.failure',
-						args: [message(code: '${domainClass.propertyName}.label', default: '${className}')],
-						default: 'Another user has updated this ${className} while you were editing')
-				cache false
-				render responseJson as JSON
+	def update() {
+		if (!requestIsJson()) {
+			respondNotAcceptable()
+			return
+		}
+
+		def ${propertyName} = ${className}.get(params.id)
+		if (!${propertyName}) {
+			respondNotFound params.id
+			return
+		}
+
+		if (params.version != null) {
+			if (${propertyName}.version > params.long('version')) {
+				respondConflict(${propertyName})
 				return
-            }
-        }
+			}
+		}
 
-        ${propertyName}.properties = request.JSON
+		${propertyName}.properties = request.GSON
 
-        if (${propertyName}.save(flush: true)) {
-            response.status = SC_OK
-            responseJson.id = ${propertyName}.id
-            responseJson.message = message(code: 'default.updated.message', args: [message(code: '${domainClass.propertyName}.label', default: '${className}'), ${propertyName}.id])
-        } else {
-            response.status = SC_UNPROCESSABLE_ENTITY
-            responseJson.errors = ${propertyName}.errors.fieldErrors.collectEntries {
-                [(it.field): message(error: it)]
-            }
-        }
+		if (${propertyName}.save(flush: true)) {
+			respondUpdated ${propertyName}
+		} else {
+			respondUnprocessableEntity ${propertyName}
+		}
+	}
 
-		cache false
-		render responseJson as JSON
-    }
+	def delete() {
+		def ${propertyName} = ${className}.get(params.id)
+		if (!${propertyName}) {
+			respondNotFound params.id
+			return
+		}
 
-    def delete() {
-        def ${propertyName} = ${className}.get(params.id)
-        if (!${propertyName}) {
-            notFound params.id
-            return
-        }
+		try {
+			${propertyName}.delete(flush: true)
+			respondDeleted params.id
+		} catch (DataIntegrityViolationException e) {
+			respondNotDeleted params.id
+		}
+	}
 
-        def responseJson = [:]
-        try {
-            ${propertyName}.delete(flush: true)
-            responseJson.message = message(code: 'default.deleted.message', args: [message(code: '${domainClass.propertyName}.label', default: '${className}'), params.id])
-        } catch (DataIntegrityViolationException e) {
-            response.status = SC_CONFLICT
-            responseJson.message = message(code: 'default.not.deleted.message', args: [message(code: '${domainClass.propertyName}.label', default: '${className}'), params.id])
-        }
-		cache false
-		render responseJson as JSON
-    }
+	private boolean requestIsJson() {
+		GSON.isJson(request)
+	}
 
-    private void notFound(id) {
-        response.status = SC_NOT_FOUND
-        def responseJson = [message: message(code: 'default.not.found.message', args: [message(code: '${domainClass.propertyName}.label', default: '${className}'), params.id])]
-        render responseJson as JSON
-    }
+	private void respondFound(${className} ${propertyName}) {
+		response.status = SC_OK
+		render ${propertyName} as GSON
+	}
+
+	private void respondUpdated(${className} ${propertyName}) {
+		response.status = SC_OK
+		render ${propertyName} as GSON
+	}
+
+	private void respondDeleted(id) {
+		def responseBody = [:]
+		responseBody.message = message(code: 'default.deleted.message', args: [message(code: '${domainClass.propertyName}.label', default: '${className}'), id])
+		response.status = SC_OK
+		render responseBody as GSON
+	}
+
+	private void respondCreated(${className} ${propertyName}) {
+		response.status = SC_CREATED
+		response.addHeader LOCATION, createLink(action: 'show', id: ${propertyName}.id)
+		render ${propertyName} as GSON
+	}
+
+	private void respondNotFound(id) {
+		def responseBody = [:]
+		responseBody.message = message(code: 'default.not.found.message', args: [message(code: '${domainClass.propertyName}.label', default: '${className}'), id])
+		response.status = SC_NOT_FOUND
+		render responseBody as GSON
+	}
+
+	private void respondNotAcceptable() {
+		response.status = SC_NOT_ACCEPTABLE
+		response.contentLength = 0
+		response.outputStream.flush()
+		response.outputStream.close()
+	}
+
+	private void respondConflict(${className} ${propertyName}) {
+		${propertyName}.errors.rejectValue('version', 'default.optimistic.locking.failure',
+				[message(code: '${domainClass.propertyName}.label', default: '${className}')] as Object[],
+				'Another user has updated this ${className} while you were editing')
+		def responseBody = [:]
+		responseBody.errors = ${propertyName}.errors.allErrors.collect {
+			message(error: it)
+		}
+		response.status = SC_CONFLICT
+		render responseBody as GSON
+	}
+
+	private void respondUnprocessableEntity(${className} ${propertyName}) {
+		def responseBody = [:]
+		responseBody.errors = ${propertyName}.errors.allErrors.collect {
+			message(error: it)
+		}
+		response.status = SC_UNPROCESSABLE_ENTITY
+		render responseBody as GSON
+	}
+
+	private void respondNotDeleted(id) {
+		def responseBody = [:]
+		responseBody.message = message(code: 'default.not.deleted.message', args: [message(code: '${domainClass.propertyName}.label', default: '${className}'), id])
+		response.status = SC_INTERNAL_SERVER_ERROR
+		render responseBody as GSON
+	}
+
 }
