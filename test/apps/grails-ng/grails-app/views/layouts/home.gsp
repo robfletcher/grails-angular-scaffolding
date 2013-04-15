@@ -12,6 +12,7 @@
         <link rel="apple-touch-icon" href="${resource(dir: 'images', file: 'apple-touch-icon.png')}">
         <link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}">
         <r:require module="ui-common"/>
+        <r:require module="prefixfree"/>
         <style>
         body {
             padding-bottom: 40px;
