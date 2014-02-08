@@ -1,15 +1,8 @@
 class UrlMappings {
 
 	static mappings = {
-		"/album/index"(controller: "album", action: "index")
-		"/album"(controller: "album", action: "list")
-		"/album/$id?"(resource: "album")
-
-		"/$controller/$action?/$id?"{
-			constraints {
-				// apply constraints here
-			}
-		}
+		"/album/page"(controller: "album", action: "page")
+		"/album"(resources: "album")
 
 		"/"(view:"/index")
 		"500"(view:'/error')
