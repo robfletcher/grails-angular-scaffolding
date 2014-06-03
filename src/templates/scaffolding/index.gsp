@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="\${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
 
         <r:require module="angular-scaffolding"/>
+		<r:require modules="bootstrap"/> 
     </head>
     <body data-ng-app="scaffolding" data-base-url="\${createLink(uri: '/${domainClass.propertyName}/')}">
         <a href="#list-${domainClass.propertyName}" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>

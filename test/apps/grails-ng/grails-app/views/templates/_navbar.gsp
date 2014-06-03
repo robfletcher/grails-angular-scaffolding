@@ -5,7 +5,7 @@
 			<div class="nav-collapse">
 				<ul class="nav">
 					<g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-						<li <g:if test="${controllerName == c.logicalPropertyName}">class="active"</g:if>><g:link controller="${c.logicalPropertyName}">${c.naturalName}</g:link></li>
+						<li <g:if test="${controllerName == c.logicalPropertyName}">class="active"</g:if>><g:link controller="${c.logicalPropertyName}" action="page">${c.naturalName}</g:link></li>
 					</g:each>
 				</ul>
 			</div>

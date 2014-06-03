@@ -1,7 +1,7 @@
 import grails.util.GrailsNameUtils
 
 includeTargets << grailsScript("_GrailsCreateArtifacts")
-includeTargets << new File("scaffoldingPluginDir/scripts/_GrailsGenerate.groovy")
+includeTargets << new File("$scaffoldingPluginDir/scripts/_GrailsGenerate.groovy")
 includeTargets << grailsScript("_GrailsBootstrap")
 
 generateForName = null

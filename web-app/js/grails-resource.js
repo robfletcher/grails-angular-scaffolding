@@ -10,8 +10,8 @@ angular.module('grailsService', ['ngResource']).factory('Grails', function($reso
     return $resource(rootUrl + ':controller/:id', {id: '@id', controller: controller}, {
         list: {method: 'GET', isArray: true},
         get: {method: 'GET'},
-        save: {method: 'PUT'},
-        update: {method: 'POST'},
+        save: {method: 'POST'},
+        update: {method: 'PUT'},
         delete: {method: 'DELETE'}
     });
 });

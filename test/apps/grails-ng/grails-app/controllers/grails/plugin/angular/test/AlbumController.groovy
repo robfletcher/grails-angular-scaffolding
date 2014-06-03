@@ -8,12 +8,13 @@ import static grails.plugin.gson.http.HttpConstants.*
 
 class AlbumController {
 
-	def index() { }
-
-	def list(Integer max) {
+	def index(Integer max) { 
 		params.max = Math.min(max ?: 10, 100)
 		response.addIntHeader X_PAGINATION_TOTAL, Album.count()
 		render Album.list(params) as GSON
+	}
+
+	def page() {
 	}
 
 	def save() {
