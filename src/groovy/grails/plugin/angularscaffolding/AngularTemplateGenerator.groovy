@@ -20,7 +20,7 @@ class AngularTemplateGenerator extends DefaultGrailsTemplateGenerator
 	def renderEditor = { property, prefix ->
 		def domainClass = property.domainClass
 		def cp
-		if (pluginManager?.hasGrailsPlugin('hibernate')) {
+		if (pluginManager?.hasGrailsPlugin('hibernate4')||pluginManager?.hasGrailsPlugin('hibernate3')) {
 			cp = domainClass.constrainedProperties[property.name]
 		}
 
