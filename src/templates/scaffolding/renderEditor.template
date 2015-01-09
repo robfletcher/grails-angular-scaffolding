@@ -1,4 +1,7 @@
 <%
+        if (pluginManager?.hasGrailsPlugin('hibernate')) {
+   			cp = domainClass.constrainedProperties[property.name]
+   		}
 	def name = prefix ? "${prefix}${property.name}" : property.name
 
     switch (property.type) {
